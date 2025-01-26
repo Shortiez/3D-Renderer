@@ -1,0 +1,24 @@
+# ninja log v6
+35	504	1737823369767850298	CMakeFiles/3D_Renderer.dir/src/core/Camera.cpp.o	bb9bf8a7879e84fb
+132	274	1737842289375142474	CMakeFiles/3D_Renderer.dir/src/core/Input.cpp.o	4175168c55307806
+62	221	1737821346666501635	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_impl_opengl3.cpp.o	fff9dd9558492f1d
+1460	2212	1737901650519982358	CMakeFiles/3D_Renderer.dir/src/debug/DebugProfilerUI.cpp.o	4a59b418c436621f
+186	1530	1737901649245291528	CMakeFiles/3D_Renderer.dir/src/graphics/Mesh.cpp.o	93fb5c341bf2f073
+1288	2281	1737821328469952531	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui.cpp.o	da0dac1ebc2a5001
+221	785	1737821346825316686	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_widgets.cpp.o	308649552fdb0908
+2212	2459	1737901651271725322	/Volumes/BensHD/Dev/Projects/C++/3D-Renderer/3D_Renderer	8e7cad33d42dc13a
+62	594	1737821346666322467	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_impl_glfw.cpp.o	570c6b56f2705388
+62	483	1737821346666876054	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_tables.cpp.o	f1bbe72e8c041084
+1415	2082	1737821328597666486	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_demo.cpp.o	c2b820529b023ff7
+61	551	1737821346665943339	CMakeFiles/3D_Renderer.dir/third-party/imgui/imgui_draw.cpp.o	1470ae1e8605539e
+1286	1415	1737821328468816523	CMakeFiles/3D_Renderer.dir/src/graphics/Vertex.cpp.o	352f452077f19306
+1441	2193	1737901650500586613	CMakeFiles/3D_Renderer.dir/src/graphics/Renderer.cpp.o	bff818d0e792ef55
+1348	2141	1737901650408144474	CMakeFiles/3D_Renderer.dir/src/graphics/MeshLibrary.cpp.o	76a43c75fb6bb7e9
+185	1567	1737901649244571284	CMakeFiles/3D_Renderer.dir/src/core/Scene.cpp.o	c281ee3dd5bbe81e
+483	568	1737821347087736646	CMakeFiles/3D_Renderer.dir/src/glad.c.o	673ecdf77284fc00
+183	1348	1737901649243157797	CMakeFiles/3D_Renderer.dir/src/main.cpp.o	e2182063c587d784
+185	1441	1737901649244872656	CMakeFiles/3D_Renderer.dir/src/core/SceneObject.cpp.o	9b3aa16e775e241c
+156	1227	1737842277884823684	CMakeFiles/3D_Renderer.dir/src/core/Window.cpp.o	9ae9cac25ee0a9a9
+185	1560	1737901649244407036	CMakeFiles/3D_Renderer.dir/src/core/Application.cpp.o	3c37d78df27f1587
+185	1460	1737901649245161654	CMakeFiles/3D_Renderer.dir/src/graphics/Material.cpp.o	a295bc53ee913f6b
+325	1293	1737845025607718457	CMakeFiles/3D_Renderer.dir/src/graphics/ShaderUtility.cpp.o	c215bb139bedba08
