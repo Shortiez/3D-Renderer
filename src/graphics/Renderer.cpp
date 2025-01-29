@@ -10,11 +10,12 @@
 
 namespace BG3DRenderer::Graphics{
 
-    Renderer::Renderer(std::shared_ptr<ShaderUtility> shader): activeShader(std::move(shader)) {
+    Renderer::Renderer(): activeShader(ShaderUtility("src/shaders/VertexShader.glsl", "src/shaders/FragmentShader.glsl")){
+        activeShader.Use();
     }
 
     void Renderer::Render(const std::vector<SceneObject*>& objects) {
-        activeShader->Use();
+        activeShader.Use();
 
         // Update view and projection matrices
         glm::mat4 view = activeCamera->GetViewMatrix();
@@ -25,11 +26,11 @@ namespace BG3DRenderer::Graphics{
             100.0f
         );
 
-        activeShader->SetMat4("view", view);
-        activeShader->SetMat4("projection", projection);
+        activeShader.SetMat4("view", view);
+        activeShader.SetMat4("projection", projection);
 
         for (auto& object : objects) {
-            object->Render(activeShader);
+            object->Render(&activeShader);
         }
     }
 
@@ -37,8 +38,8 @@ namespace BG3DRenderer::Graphics{
         activeCamera = camera;
     }
 
-    std::shared_ptr<ShaderUtility>Renderer::GetShader() const {
-        return activeShader;
+    ShaderUtility* Renderer::GetShader() {
+        return &activeShader;
     }
 
     void Renderer::UpdateFrameTime() {

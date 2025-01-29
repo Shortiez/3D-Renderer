@@ -45,9 +45,6 @@ namespace BG3DRenderer::Core {
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
         glEnable(GL_DEPTH_TEST);
-
-        // Force a resize to prevent viewport sync issues
-        framebuffer_size_callback(window, width, height);
     }
 
     Window::~Window() {

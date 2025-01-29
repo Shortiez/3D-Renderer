@@ -134,7 +134,7 @@ namespace BG3DRenderer::Graphics {
         }
     }
 
-    void Mesh::DrawMesh(std::shared_ptr<ShaderUtility> shader) {
+    void Mesh::DrawMesh(ShaderUtility* shader) {
         if (!*isInitialized || VAO == 0) {
             std::cerr << "Attempting to draw uninitialized mesh" << std::endl;
             return;

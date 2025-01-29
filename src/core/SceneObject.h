@@ -18,7 +18,7 @@ namespace BG3DRenderer::Core {
         ~SceneObject();
 
         void Update();
-        void Render(std::shared_ptr<ShaderUtility> shader);
+        void Render(ShaderUtility* shader);
 
         void Translate(glm::vec3 position);
         void Rotate(float angle, glm::vec3 axis);

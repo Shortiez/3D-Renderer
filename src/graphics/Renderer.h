@@ -14,7 +14,7 @@ using namespace BG3DRenderer::Core;
 namespace BG3DRenderer::Graphics{
 	class Renderer {
 	private:
-        std::shared_ptr<ShaderUtility> activeShader;
+        ShaderUtility activeShader;
 		std::shared_ptr<Camera> activeCamera;
 
 		float deltaTime = 0.0f;
@@ -27,14 +27,14 @@ namespace BG3DRenderer::Graphics{
 		float maxFrameTime = 0.0f;
 		std::vector<float> frameTimeHistory;
 	public:
-		Renderer(std::shared_ptr<ShaderUtility> shader);
+		Renderer();
 
 		void UpdateFrameTime();
 		void Render(const std::vector<SceneObject*>& objects);
 
 		void SetCamera(const std::shared_ptr<Camera> camera);
 
-        std::shared_ptr<ShaderUtility> GetShader() const;
+        ShaderUtility* GetShader();
 
 		float GetDeltaTime() const { return deltaTime; }
 

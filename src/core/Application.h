@@ -17,9 +17,7 @@ namespace BG3DRenderer::Core {
     class Application {
     private:
         Window appWindow;
-
-        std::shared_ptr<ShaderUtility> shader;
-        std::unique_ptr<Renderer> appRenderer;
+        Renderer appRenderer;
 
         Scene appScene;
         Input appInput;

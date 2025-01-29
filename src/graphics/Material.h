@@ -15,7 +15,7 @@ namespace BG3DRenderer::Graphics{
         Material();
 
         void SetBaseColor(const glm::vec4 color);
-        void UpdateMaterial(std::shared_ptr<ShaderUtility> shader);
+        void UpdateMaterial(ShaderUtility* shader);
     };
 }
 

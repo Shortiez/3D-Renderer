@@ -15,14 +15,12 @@ namespace BG3DRenderer::Core {
 
     Application::Application()
             : appWindow(1200, 960, "3D Window"),   // ✅ Initialize window first
-              shader(std::make_shared<ShaderUtility>("src/shaders/VertexShader.glsl", "src/shaders/FragmentShader.glsl")), // ✅ Initialize shader early
-              appRenderer(std::make_unique<Renderer>(shader)), // ✅ Now shader exists before this line
+              appRenderer(Renderer()), // ✅ Now shader exists before this line
               profilerUI(appWindow.GetWindow()),  // ✅ Profiler needs the window
               appInput(appWindow.GetWindow()),    // ✅ Input system needs the window
-              appScene(*appRenderer, appInput)    // ✅ Scene needs Renderer and Input
+              appScene(&appRenderer, &appInput)    // ✅ Scene needs Renderer and Input
     {
         std::cout << "Application created" << std::endl;
-        shader->Use();  // ✅ Shader is now valid
 
         glfwSetWindowUserPointer(appWindow.GetWindow(), &appScene);
 
@@ -46,7 +44,7 @@ namespace BG3DRenderer::Core {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Render here
-            profilerUI.Render(appScene, *appRenderer);
+            profilerUI.Render(appScene, appRenderer);
 
             appScene.Update(deltaTime);
             appScene.Render();

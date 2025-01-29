@@ -35,7 +35,7 @@ namespace BG3DRenderer::Graphics{
         // Move assignment
         Mesh& operator=(Mesh&& other) noexcept;
 
-        void DrawMesh(std::shared_ptr<ShaderUtility> shader);
+        void DrawMesh(ShaderUtility* shader);
 
         void SetMaterial(Material& material);
     };

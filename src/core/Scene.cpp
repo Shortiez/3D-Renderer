@@ -15,12 +15,12 @@ using namespace std;
 
 namespace BG3DRenderer::Core {
 
-    Scene::Scene(Graphics::Renderer& renderer, Input& input) :
+    Scene::Scene(Graphics::Renderer* renderer, Input* input) :
        renderer(renderer),
        input(input)
     {
         mainCamera = std::make_shared<Camera>(Camera(glm::vec3(0.0f, 0.0f, 3.0f)));
-        renderer.SetCamera(mainCamera);
+        renderer->SetCamera(mainCamera);
 
         Start();
     }
@@ -52,20 +52,20 @@ namespace BG3DRenderer::Core {
         internalUpdate();
 
         // Add runtime logic here
-        if(input.IsKeyPressed(GLFW_KEY_W))
+        if(input->IsKeyPressed(GLFW_KEY_W))
             mainCamera->ProcessKeyboard(FORWARD, deltaTime);
-        if(input.IsKeyPressed(GLFW_KEY_A))
+        if(input->IsKeyPressed(GLFW_KEY_A))
             mainCamera->ProcessKeyboard(LEFT, deltaTime);
-        if(input.IsKeyPressed(GLFW_KEY_S))
+        if(input->IsKeyPressed(GLFW_KEY_S))
             mainCamera->ProcessKeyboard(BACKWARD, deltaTime);
-        if(input.IsKeyPressed(GLFW_KEY_D))
+        if(input->IsKeyPressed(GLFW_KEY_D))
             mainCamera->ProcessKeyboard(RIGHT, deltaTime);
 
         GetSceneObject(0).Rotate(deltaTime, glm::vec3(0, 0, 1));
     }
 
     void Scene::internalUpdate() {
-        renderer.UpdateFrameTime();
+        renderer->UpdateFrameTime();
 
         // Update scene objects if needed
         for (auto& object : *sceneObjects) {
@@ -80,7 +80,7 @@ namespace BG3DRenderer::Core {
             objectsToRender.push_back(&object);
         }
 
-        renderer.Render(objectsToRender);
+        renderer->Render(objectsToRender);
     }
 
     SceneObject& Scene::GetSceneObject(int index) {

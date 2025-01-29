@@ -18,13 +18,13 @@ namespace BG3DRenderer::Core {
     class Scene {
     private:
         shared_ptr<vector<SceneObject>> sceneObjects = make_shared<vector<SceneObject>>();
-        Renderer& renderer;
         shared_ptr<Camera> mainCamera;
-        Input& input;
+        Renderer* renderer;
+        Input* input;
 
         void internalUpdate();
     public:
-        Scene(Renderer& renderer, Input& input);
+        Scene(Renderer* renderer, Input* input);
         ~Scene();
         void AddSceneObject(SceneObject& sceneObject);
         void RemoveSceneObject(SceneObject* sceneObject);
