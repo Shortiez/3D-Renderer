@@ -1,3 +1,0 @@
-/Volumes/BensHD/Dev/Projects/C++/3D-Renderer/cmake-build-debug/CMakeFiles/3D_Renderer.dir
-/Volumes/BensHD/Dev/Projects/C++/3D-Renderer/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Volumes/BensHD/Dev/Projects/C++/3D-Renderer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
