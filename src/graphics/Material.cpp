@@ -7,10 +7,10 @@
 namespace BG3DRenderer::Graphics {
 
     Material::Material() {
-        BaseColor = {0, 0, 0, 1};
+        BaseColor = {0, 1, 0, 1};
     }
 
-    void Material::UpdateMaterial(ShaderUtility* shader) {
+    void Material::UpdateMaterial(std::shared_ptr<Shader> shader) {
         if (!shader) {
             std::cerr << "Material::UpdateMaterial - Shader is null!" << std::endl;
             return;

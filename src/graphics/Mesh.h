@@ -3,7 +3,7 @@
 #include "glad/glad.h"
 
 #include "Material.h"
-#include "ShaderUtility.h"
+#include "Shader.h"
 #include "Vertex.cpp"
 #include <vector>
 #include <memory>
@@ -35,7 +35,7 @@ namespace BG3DRenderer::Graphics{
         // Move assignment
         Mesh& operator=(Mesh&& other) noexcept;
 
-        void DrawMesh(ShaderUtility* shader);
+        void DrawMesh(std::shared_ptr<Shader> shader);
 
         void SetMaterial(Material& material);
     };

@@ -5,7 +5,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "ShaderUtility.h"
+#include "Shader.h"
 #include "../core/SceneObject.h"
 #include "../core/Camera.h"
 
@@ -14,7 +14,7 @@ using namespace BG3DRenderer::Core;
 namespace BG3DRenderer::Graphics{
 	class Renderer {
 	private:
-        ShaderUtility activeShader;
+        std::shared_ptr<Shader> activeShader;
 		std::shared_ptr<Camera> activeCamera;
 
 		float deltaTime = 0.0f;
@@ -34,7 +34,7 @@ namespace BG3DRenderer::Graphics{
 
 		void SetCamera(const std::shared_ptr<Camera> camera);
 
-        ShaderUtility* GetShader();
+        std::shared_ptr<Shader> GetShader();
 
 		float GetDeltaTime() const { return deltaTime; }
 

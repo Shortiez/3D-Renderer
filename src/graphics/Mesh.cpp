@@ -20,10 +20,10 @@ namespace BG3DRenderer::Graphics {
 
     // Copy constructor
     Mesh::Mesh(const Mesh& other)
-            : vertices(other.vertices),
+            : isInitialized(std::make_shared<bool>(true)),
+              vertices(other.vertices),
               indices(other.indices),
-              material(fallbackMat),
-              isInitialized(std::make_shared<bool>(true)) {
+              material(fallbackMat) {
         createBuffers();
     }
 
@@ -134,7 +134,7 @@ namespace BG3DRenderer::Graphics {
         }
     }
 
-    void Mesh::DrawMesh(ShaderUtility* shader) {
+    void Mesh::DrawMesh(std::shared_ptr<Shader> shader) {
         if (!*isInitialized || VAO == 0) {
             std::cerr << "Attempting to draw uninitialized mesh" << std::endl;
             return;
