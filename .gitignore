@@ -1,0 +1,54 @@
+# ==========================
+# C++ / CMake / OpenGL GitIgnore
+# ==========================
+
+# 1️⃣ Build directories and generated files
+/build/
+cmake-build-*/
+bin/
+obj/
+out/
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+Testing/
+CTestTestfile.cmake
+Makefile
+cmake_install.cmake
+
+# 2️⃣ Compiler files
+*.o
+*.obj
+*.so
+*.a
+*.lib
+*.dll
+*.dylib
+*.exe
+*.exp
+*.pdb
+
+# 3️⃣ OpenGL Libraries & Dependencies (Modify if needed)
+vendor/
+third-party/
+external/
+libs/
+lib/
+deps/
+*.framework  # macOS frameworks
+*.xcworkspace  # Xcode workspace
+
+# 4️⃣ IDE-specific files
+# CLion / JetBrains
+.idea/
+*.iml
+
+# Xcode
+*.xcuserstate
+*.xcuserdatad*
+*.xcodeproj/
+
+# 6️⃣ Git Ignore Overrides (Remove # to allow)
+# !src/
+# !include/
+# !CMakeLists.txt
