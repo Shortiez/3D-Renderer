@@ -1,0 +1,22 @@
+# Ignore build directories
+/build/
+cmake-build-*/
+
+# Ignore CMake-generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+Testing/
+CTestTestfile.cmake
+Makefile
+cmake_install.cmake
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.iml
+
+# Ignore logs, temp files
+*.log
+*.tmp
+*.swp
