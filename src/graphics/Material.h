@@ -5,7 +5,9 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "ShaderUtility.h"
+#include <memory>
+
+#include "Shader.h"
 
 namespace BG3DRenderer::Graphics{
     class Material {
@@ -14,8 +16,8 @@ namespace BG3DRenderer::Graphics{
     public:
         Material();
 
-        void SetBaseColor(const glm::vec4 color);
-        void UpdateMaterial(ShaderUtility* shader);
+        void SetBaseColor(glm::vec4 color);
+        void UpdateMaterial(std::shared_ptr<Shader> shader);
     };
 }
 

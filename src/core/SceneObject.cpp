@@ -14,7 +14,7 @@ namespace BG3DRenderer::Core {
         // Optional update logic (e.g., animations or other updates)
     }
 
-    void SceneObject::Render(ShaderUtility* shader) {
+    void SceneObject::Render(std::shared_ptr<Shader> shader) {
         shader->SetMat4("model", transform);
         mesh.DrawMesh(shader);
     }

@@ -61,6 +61,11 @@ namespace BG3DRenderer::Core {
         if(input->IsKeyPressed(GLFW_KEY_D))
             mainCamera->ProcessKeyboard(RIGHT, deltaTime);
 
+        if (input->IsKeyPressed(GLFW_KEY_SPACE))
+        {
+            GetSceneObject(0).material.SetBaseColor(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+        }
+
         GetSceneObject(0).Rotate(deltaTime, glm::vec3(0, 0, 1));
     }
 
