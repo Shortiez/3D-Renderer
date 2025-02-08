@@ -5,6 +5,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include <memory>
+
 #include "Shader.h"
 
 namespace BG3DRenderer::Graphics{
