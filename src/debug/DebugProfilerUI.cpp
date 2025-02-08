@@ -43,10 +43,10 @@ namespace BG3DRenderer::Debug {
 
         // Set upside menu window flags and size
         ImGuiWindowFlags window_flags =
-            ImGuiWindowFlags_NoCollapse |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoBringToFrontOnFocus;
+                ImGuiWindowFlags_NoCollapse |
+                ImGuiWindowFlags_NoMove |
+                ImGuiWindowFlags_NoResize |
+                ImGuiWindowFlags_NoBringToFrontOnFocus;
 
         // Position and size for side menu
         const float MENU_WIDTH = 250.0f;

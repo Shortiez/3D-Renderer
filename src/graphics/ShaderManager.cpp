@@ -13,7 +13,7 @@ namespace BG3DRenderer::Graphics {
     }
 
     std::shared_ptr<Shader> ShaderManager::loadShader(const std::string& vertexPath,
-                                                    const std::string& fragmentPath)
+                                                      const std::string& fragmentPath)
     {
         auto& instance = getInstance();
         ShaderKey key{vertexPath, fragmentPath};
@@ -44,5 +44,4 @@ namespace BG3DRenderer::Graphics {
             }
         }
     }
-
 }

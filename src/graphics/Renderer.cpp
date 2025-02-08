@@ -3,10 +3,9 @@
 //
 
 #include "Renderer.h"
-
 #include <GLFW/glfw3.h>
-
 #include <utility>
+#include "ShaderManager.h"
 
 #include "ShaderManager.h"
 

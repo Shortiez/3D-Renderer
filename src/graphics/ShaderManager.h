@@ -33,9 +33,9 @@ namespace BG3DRenderer::Graphics {
 
     public:
         static std::shared_ptr<Shader> loadShader(const std::string& vertexPath,
-                                                const std::string& fragmentPath);
+                                                  const std::string& fragmentPath);
         static void clearUnused();
     };
 }
 
-#endif //SHADERMANAGER_H
+#endif //SHADERMANAGER_H  

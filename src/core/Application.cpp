@@ -6,6 +6,8 @@
 #include "Scene.h"
 #include "Window.h"
 #include "../graphics/Renderer.h"
+#include "../graphics/MeshLibrary.h"
+#include "../graphics/Material.h"
 
 using namespace BG3DRenderer::Graphics;
 
@@ -14,9 +16,9 @@ namespace BG3DRenderer::Core {
     Application::Application()
             : appWindow(1200, 960, "3D Window"),   // ✅ Initialize window first
               appRenderer(Renderer()), // ✅ Now shader exists before this line
-              appScene(&appRenderer, &appInput),  // ✅ Profiler needs the window
+              appScene(&appRenderer, &appInput),   // ✅ Scene needs Renderer and Input
               appInput(appWindow.GetWindow()),    // ✅ Input system needs the window
-              profilerUI(appWindow.GetWindow())    // ✅ Scene needs Renderer and Input
+              profilerUI(appWindow.GetWindow())  // ✅ Profiler needs the window
     {
         std::cout << "Application created" << std::endl;
 
@@ -37,7 +39,7 @@ namespace BG3DRenderer::Core {
 
     void Application::Run() {
         while (!appWindow.ShouldClose()) {
-            const auto currentFrame = static_cast<float>(glfwGetTime());
+            auto currentFrame = static_cast<float>(glfwGetTime());
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
 

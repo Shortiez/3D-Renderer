@@ -1,5 +1,5 @@
 # ==========================
-# C++ / CMake / OpenGL GitIgnore
+# C++ / CMake / OpenGL GitIgnore (macOS & Windows)
 # ==========================
 
 # 1️⃣ Build directories and generated files
@@ -16,7 +16,7 @@ CTestTestfile.cmake
 Makefile
 cmake_install.cmake
 
-# 2️⃣ Compiler files
+# 2️⃣ Compiler and linker files
 *.o
 *.obj
 *.so
@@ -28,10 +28,17 @@ cmake_install.cmake
 *.exp
 *.pdb
 
-# 3️⃣ OpenGL Libraries & Dependencies (Modify if needed)
-vendor/
-third-party/
-external/
+# 3️⃣ OpenGL Libraries & Dependencies
+vendor/**/bin/
+vendor/**/lib/
+vendor/**/build/
+vendor/**/CMakeFiles/
+third-party/**/bin/
+third-party/**/lib/
+third-party/**/build/
+external/**/bin/
+external/**/lib/
+external/**/build/
 libs/
 lib/
 deps/
@@ -41,14 +48,48 @@ deps/
 # 4️⃣ IDE-specific files
 # CLion / JetBrains
 .idea/
+*.ipr
+*.iws
 *.iml
 
 # Xcode
-*.xcuserstate
-*.xcuserdatad*
-*.xcodeproj/
+*.xcworkspace/
+*.xcuserdata/
+*.xcodeproj/*
+*.pbxproj
 
-# 6️⃣ Git Ignore Overrides (Remove # to allow)
-# !src/
-# !include/
-# !CMakeLists.txt
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vs/
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj.user
+
+# 5️⃣ System-specific files
+# macOS
+.DS_Store
+AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# 6️⃣ Logs, Cache, and Temp Files
+*.log
+*.tmp
+*.swp
+*.swo
+*.swn
+*.bak
+*.cache
+
+# 7️⃣ Ensure source and important files are NOT ignored
+!src/
+!include/
+!shaders/
+!CMakeLists.txt
+!assets/

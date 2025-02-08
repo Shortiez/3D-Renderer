@@ -9,7 +9,7 @@
 namespace BG3DRenderer::Graphics
 {
     Shader::Shader(const std::string& vPath, const std::string& fPath)
-        : ID(0), vertexPath(vPath), fragmentPath(fPath)
+            : ID(0), vertexPath(vPath), fragmentPath(fPath)
     {
         std::string vertexCode, fragmentCode;
         std::ifstream vShaderFile, fShaderFile;
@@ -42,9 +42,9 @@ namespace BG3DRenderer::Graphics
     }
 
     Shader::Shader(Shader&& other) noexcept
-        : ID(other.ID),
-          vertexPath(std::move(other.vertexPath)),
-          fragmentPath(std::move(other.fragmentPath))
+            : ID(other.ID),
+              vertexPath(std::move(other.vertexPath)),
+              fragmentPath(std::move(other.fragmentPath))
     {
         other.ID = 0;
     }
