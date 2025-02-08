@@ -10,7 +10,7 @@ using namespace BG3DRenderer::Graphics;
 namespace BG3DRenderer::Core {
     class SceneObject {
     public:
-        SceneObject(Mesh& mesh, Material& mat);
+        SceneObject(std::shared_ptr<Mesh> mesh);
         ~SceneObject();
 
         void Update();
@@ -20,8 +20,7 @@ namespace BG3DRenderer::Core {
         void Rotate(float angle, glm::vec3 axis);
         void Scale(glm::vec3 scale);
 
-        Mesh mesh;
-        Material material;
+        std::shared_ptr<Mesh> mesh;
         glm::mat4 transform = glm::mat4(1.0f);
     };
 }

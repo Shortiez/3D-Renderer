@@ -17,13 +17,12 @@ namespace BG3DRenderer::Graphics{
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
 
-        Material fallbackMat;
-        Material& material = fallbackMat;
+        std::shared_ptr<Material> material;
 
         void createBuffers();
         void cleanupBuffers();
     public:
-        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::shared_ptr<Material> material = Material::GetDefaultMaterial());
         ~Mesh();
 
         // Copy constructor
@@ -37,7 +36,8 @@ namespace BG3DRenderer::Graphics{
 
         void DrawMesh(std::shared_ptr<Shader> shader);
 
-        void SetMaterial(Material& material);
+        void SetMaterial(std::shared_ptr<Material> material);
+        std::shared_ptr<Material> GetMaterial();
     };
 }
 

@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 
+#include "Colour.cpp"
+
 namespace BG3DRenderer::Graphics {
     class ShaderManager;  // Forward declaration
 
@@ -31,7 +33,7 @@ namespace BG3DRenderer::Graphics {
         void SetBool(const std::string& name, bool value) const;
         void SetInt(const std::string& name, int value) const;
         void SetFloat(const std::string& name, float value) const;
-        void SetColour(const std::string& name, glm::vec4 color) const;
+        void SetColour(const std::string& name, Colour color) const;
         void SetMat4(const std::string& name, glm::mat4 mat) const;
     private:
         Shader(const std::string& vPath, const std::string& fPath);

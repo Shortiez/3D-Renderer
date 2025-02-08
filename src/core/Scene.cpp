@@ -1,13 +1,8 @@
 //
 // Created by Ben Gotts on 25/01/2025.
 //
-
 #include <vector>
-
 #include "Scene.h"
-
-#include <iostream>
-
 #include "../graphics/Renderer.h"
 #include "../graphics/MeshLibrary.h"
 
@@ -38,13 +33,14 @@ namespace BG3DRenderer::Core {
     }
 
     void Scene::Start() {
-        Mesh mesh = MeshLibrary::Cube(1.0f);
-        Material material = Material();
+        auto mesh = MeshLibrary::Cube(1.0f);
+
+        auto material = std::make_shared<Material>();
+        material->SetBaseColor(Colour::Red());
+
         mesh.SetMaterial(material);
 
-        material.SetBaseColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-        SceneObject sceneObject = SceneObject(mesh, material);
+        SceneObject sceneObject = SceneObject(make_shared<Mesh>(mesh));
         AddSceneObject(sceneObject);
     }
 
@@ -52,18 +48,28 @@ namespace BG3DRenderer::Core {
         internalUpdate();
 
         // Add runtime logic here
-        if(input->IsKeyPressed(GLFW_KEY_W))
+        if(input->IsKeyHeld(GLFW_KEY_W))
             mainCamera->ProcessKeyboard(FORWARD, deltaTime);
-        if(input->IsKeyPressed(GLFW_KEY_A))
+        if(input->IsKeyHeld(GLFW_KEY_A))
             mainCamera->ProcessKeyboard(LEFT, deltaTime);
-        if(input->IsKeyPressed(GLFW_KEY_S))
+        if(input->IsKeyHeld(GLFW_KEY_S))
             mainCamera->ProcessKeyboard(BACKWARD, deltaTime);
-        if(input->IsKeyPressed(GLFW_KEY_D))
+        if(input->IsKeyHeld(GLFW_KEY_D))
             mainCamera->ProcessKeyboard(RIGHT, deltaTime);
 
-        if (input->IsKeyPressed(GLFW_KEY_SPACE))
+        if (input->IsKeyPressed(GLFW_KEY_0))
         {
-            GetSceneObject(0).material.SetBaseColor(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Red());
+        }
+
+        if (input->IsKeyHeld(GLFW_KEY_1))
+        {
+            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Green());
+        }
+
+        if (input->IsKeyPressed(GLFW_KEY_2))
+        {
+            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Blue());
         }
 
         GetSceneObject(0).Rotate(deltaTime, glm::vec3(0, 0, 1));

@@ -39,10 +39,15 @@ set(SOURCES
         src/graphics/Vertex.cpp
         src/debug/DebugProfilerUI.cpp
         src/graphics/ShaderManager.cpp
+        src/debug/RenderDocIntegration.cpp
+        src/renderdoc_app.h
+        src/graphics/Colour.cpp
+        src/lighting/Light.cpp
+        src/lighting/Light.h
 )
 
 # Create the executable
-add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} src/glad.c)
+add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} ${THIRD_PARTY_SOURCES} src/glad.c)
 
 # Platform-specific GLFW setup
 if (APPLE)

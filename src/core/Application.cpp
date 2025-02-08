@@ -6,8 +6,6 @@
 #include "Scene.h"
 #include "Window.h"
 #include "../graphics/Renderer.h"
-#include "../graphics/MeshLibrary.h"
-#include "../graphics/Material.h"
 
 using namespace BG3DRenderer::Graphics;
 

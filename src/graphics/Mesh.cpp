@@ -6,11 +6,13 @@
 #include <glm/ext/matrix_transform.hpp>
 
 namespace BG3DRenderer::Graphics {
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::shared_ptr<Material> material)
             : vertices(std::move(vertices))
             , indices(std::move(indices))
-            , material(fallbackMat)
+            , material(material ? material : Material::GetDefaultMaterial())
+            , VAO(0), VBO(0), EBO(0)
             , isInitialized(std::make_shared<bool>(true)) {
+
         createBuffers();
     }
 
@@ -23,7 +25,7 @@ namespace BG3DRenderer::Graphics {
             : isInitialized(std::make_shared<bool>(true)),
               vertices(other.vertices),
               indices(other.indices),
-              material(fallbackMat) {
+              material(other.material) {
         createBuffers();
     }
 
@@ -31,10 +33,10 @@ namespace BG3DRenderer::Graphics {
     Mesh::Mesh(Mesh&& other) noexcept
             : vertices(std::move(other.vertices)),
               indices(std::move(other.indices)),
+              material(std::move(other.material)),
               VAO(other.VAO),
               VBO(other.VBO),
               EBO(other.EBO),
-              material(other.material),
               isInitialized(std::move(other.isInitialized)) {
         other.VAO = 0;
         other.VBO = 0;
@@ -74,11 +76,11 @@ namespace BG3DRenderer::Graphics {
 
             vertices = std::move(other.vertices);
             indices = std::move(other.indices);
+            material = std::move(other.material);
+
             VAO = other.VAO;
             VBO = other.VBO;
             EBO = other.EBO;
-
-            material = other.material;
 
             isInitialized = std::move(other.isInitialized);
 
@@ -140,7 +142,7 @@ namespace BG3DRenderer::Graphics {
             return;
         }
 
-        material.UpdateMaterial(shader);
+        material->UpdateMaterial(shader);
 
         shader->Use();
 
@@ -155,7 +157,11 @@ namespace BG3DRenderer::Graphics {
         }
     }
 
-    void Mesh::SetMaterial(Material& material) {
-        this->material = material;
+    void Mesh::SetMaterial(std::shared_ptr<Material> newMaterial) {
+        material = newMaterial ? newMaterial : Material::GetDefaultMaterial();
+    }
+
+    std::shared_ptr<Material> Mesh::GetMaterial() {
+        return material;
     }
 }

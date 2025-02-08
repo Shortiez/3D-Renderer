@@ -15,8 +15,29 @@ namespace BG3DRenderer::Core {
         mouseY = static_cast<float>(mousePosY);
     }
 
+
     bool Input::IsKeyPressed(int key) {
+        bool isPressed = glfwGetKey(window, key) == GLFW_PRESS;
+        if (isPressed && !keyState[key]) {
+            keyState[key] = true;
+            return true;
+        }
+        keyState[key] = isPressed;
+        return false;
+    }
+
+    bool Input::IsKeyHeld(int key) {
         return glfwGetKey(window, key) == GLFW_PRESS;
+    }
+
+    bool Input::IsKeyReleased(int key) {
+        bool isReleased = glfwGetKey(window, key) == GLFW_RELEASE;
+        if (isReleased && keyState[key]) {
+            keyState[key] = false;
+            return true;
+        }
+        keyState[key] = !isReleased;
+        return false;
     }
 
     bool Input::IsMouseButtonPressed(int button) {

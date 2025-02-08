@@ -24,7 +24,11 @@ namespace BG3DRenderer::Graphics {
         }
     }
 
-    void Material::SetBaseColor(const glm::vec4 color) {
+    void Material::SetBaseColor(const Colour color) {
         BaseColor = color;
+    }
+
+    std::shared_ptr<Material> Material::GetDefaultMaterial() {
+        return std::make_shared<Material>();;
     }
 }

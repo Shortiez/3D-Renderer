@@ -1,14 +1,13 @@
 #include "SceneObject.h"
 #include <glm/ext/matrix_transform.hpp>
+#include <utility>
 
 namespace BG3DRenderer::Core {
 
-    SceneObject::SceneObject(Mesh& mesh, Material& mat) : mesh(mesh), material(mat) {
-        mesh.SetMaterial(mat);
+    SceneObject::SceneObject(std::shared_ptr<Mesh> mesh) : mesh(std::move(mesh)) {
     }
 
-    SceneObject::~SceneObject() {
-    }
+    SceneObject::~SceneObject() = default;
 
     void SceneObject::Update() {
         // Optional update logic (e.g., animations or other updates)
@@ -16,7 +15,7 @@ namespace BG3DRenderer::Core {
 
     void SceneObject::Render(std::shared_ptr<Shader> shader) {
         shader->SetMat4("model", transform);
-        mesh.DrawMesh(shader);
+        mesh->DrawMesh(shader);
     }
 
     void SceneObject::Translate(glm::vec3 position) {

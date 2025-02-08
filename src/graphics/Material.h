@@ -9,15 +9,18 @@
 
 #include "Shader.h"
 
+struct Colour;
 namespace BG3DRenderer::Graphics{
     class Material {
     private:
-        glm::vec4 BaseColor;
+        Colour BaseColor;
     public:
         Material();
 
-        void SetBaseColor(const glm::vec4 color);
+        void SetBaseColor(Colour color);
         void UpdateMaterial(std::shared_ptr<Shader> shader);
+
+        static std::shared_ptr<Material> GetDefaultMaterial();
     };
 }
 
