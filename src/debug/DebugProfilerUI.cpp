@@ -107,7 +107,9 @@ namespace BG3DRenderer::Debug {
                 const auto& light = scene.GetSceneLight(i);
                 ImGui::Text("Position: %.2f, %.2f, %.2f", light.transform.position.x, light.transform.position.y, light.transform.position.z);
                 ImGui::Text("Intensity: %.2f", light.intensity);
-                ImGui::Text("Colour: %.2f, %.2f, %.2f", light.colour.r, light.colour.g, light.colour.b);
+                ImGui::Text("Ambient: %.2f, %.2f, %.2f", light.ambient.r, light.ambient.g, light.ambient.b);
+                ImGui::Text("Diffuse: %.2f, %.2f, %.2f", light.diffuse.r, light.diffuse.g, light.diffuse.b);
+                ImGui::Text("Specular: %.2f, %.2f, %.2f", light.specular.r, light.specular.g, light.specular.b);
                 ImGui::EndChild();
             }
 

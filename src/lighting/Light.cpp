@@ -27,8 +27,11 @@ namespace BG3DRenderer::Lighting{
 
     void Light::Render(std::shared_ptr<Shader> shader, std::shared_ptr<Core::Camera> camera) {
         shader->SetVec3("lightPos", transform.position);
-        shader->SetVec3("lightColour", colour.ToVec3());
         shader->SetVec3("viewPos", camera->Position);
+
+        shader->SetVec3("light.ambient", ambient.ToVec3());
+        shader->SetVec3("light.diffuse", diffuse.ToVec3());
+        shader->SetVec3("light.specular", specular.ToVec3());
 
         shader->SetMat4("model", transform.GetModelMatrix());
         mesh->DrawMesh(shader);

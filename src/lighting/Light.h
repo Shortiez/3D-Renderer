@@ -12,8 +12,11 @@ namespace BG3DRenderer::Lighting{
     public:
         Light();
 
+        Colour ambient = Colour(0.2f, 0.2f, 0.2f);
+        Colour diffuse = Colour(0.5f, 0.5f, 0.5f);
+        Colour specular = Colour(1.0f, 1.0f, 1.0f);
+
         float intensity = 1.0f;
-        Colour colour = Colour::White();
 
         void Update();
         void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera);
