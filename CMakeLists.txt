@@ -25,29 +25,32 @@ set(IMGUI_SOURCES
 # Manually add source files
 set(SOURCES
         src/main.cpp
+
         src/core/Application.cpp
         src/core/Window.cpp
         src/core/Scene.cpp
         src/core/SceneObject.cpp
         src/core/Camera.cpp
         src/core/Input.cpp
+        src/core/Transform.cpp
+
         src/graphics/Material.cpp
         src/graphics/Mesh.cpp
         src/graphics/MeshLibrary.cpp
         src/graphics/Renderer.cpp
         src/graphics/Shader.cpp
-        src/graphics/Vertex.cpp
-        src/debug/DebugProfilerUI.cpp
         src/graphics/ShaderManager.cpp
-        src/debug/RenderDocIntegration.cpp
-        src/renderdoc_app.h
+        src/graphics/Vertex.cpp
         src/graphics/Colour.cpp
+
+        src/debug/DebugProfilerUI.cpp
+        src/debug/RenderDocIntegration.cpp
+
         src/lighting/Light.cpp
-        src/lighting/Light.h
 )
 
 # Create the executable
-add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} ${THIRD_PARTY_SOURCES} src/glad.c)
+add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} src/renderdoc_app.h src/glad.c)
 
 # Platform-specific GLFW setup
 if (APPLE)

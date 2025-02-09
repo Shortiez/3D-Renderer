@@ -3,8 +3,12 @@
 //
 #include <vector>
 #include "Scene.h"
+
+#include <imgui.h>
+
 #include "../graphics/Renderer.h"
 #include "../graphics/MeshLibrary.h"
+#include "../lighting/Light.h"
 
 using namespace std;
 
@@ -32,7 +36,19 @@ namespace BG3DRenderer::Core {
         // TODO: Implement
     }
 
+    void Scene::AddLight(Lighting::Light& light) {
+        sceneLights->push_back(light);
+    }
+
+    void Scene::RemoveLight(Lighting::Light* light){
+
+    }
+
     void Scene::Start() {
+        Lighting::Light light = Lighting::Light();
+        light.transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
+        AddLight(light);
+
         auto mesh = MeshLibrary::Cube(1.0f);
 
         auto material = std::make_shared<Material>();
@@ -72,7 +88,7 @@ namespace BG3DRenderer::Core {
             GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Blue());
         }
 
-        GetSceneObject(0).Rotate(deltaTime, glm::vec3(0, 0, 1));
+        GetSceneObject(0).transform.Rotate(glm::vec3(0, 0, 1));
     }
 
     void Scene::internalUpdate() {
@@ -82,20 +98,30 @@ namespace BG3DRenderer::Core {
         for (auto& object : *sceneObjects) {
             object.Update();
         }
+
+        for (auto& light : *sceneLights) {
+            light.Update();
+        }
     }
 
-    void Scene::Render() {
-        // Collect raw pointers for rendering
-        std::vector<SceneObject*> objectsToRender;
-        for (auto& object : *sceneObjects) {
-            objectsToRender.push_back(&object);
+    std::shared_ptr<vector<SceneObject>> Scene::GetSceneObjects() {
+        return sceneObjects;
+    }
+
+    SceneObject& Scene::GetSceneObject(int index) const {
+        if (sceneObjects->size() <= index) {
+            throw std::out_of_range("Index out of range");
         }
 
-        renderer->Render(objectsToRender);
+        return sceneObjects->at(index);
     }
 
-    SceneObject& Scene::GetSceneObject(int index) {
-        return sceneObjects->at(index);
+    std::shared_ptr<vector<Lighting::Light>> Scene::GetSceneLights() {
+        return sceneLights;
+    }
+
+    Lighting::Light& Scene::GetSceneLight(int index) const {
+        return sceneLights->at(index);
     }
 
     shared_ptr<Camera> Scene::GetCamera() {
@@ -109,11 +135,16 @@ namespace BG3DRenderer::Core {
     // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
     void Scene::mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn) {
+        if (ImGui::GetIO().WantCaptureMouse) return; // ✅ Prevent camera movement when ImGui is active
+
         Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
         if (!scene || !scene->mainCamera) return;
 
         float xPos = static_cast<float>(xPosIn);
         float yPos = static_cast<float>(yPosIn);
+
+        static bool firstMouse = true;
+        static float lastX, lastY;
 
         if (firstMouse) {
             lastX = xPos;
@@ -122,7 +153,7 @@ namespace BG3DRenderer::Core {
         }
 
         float xOffset = xPos - lastX;
-        float yOffset = lastY - yPos; // reversed since y-coordinates go from bottom to top
+        float yOffset = lastY - yPos; // Reversed since y-coordinates go from bottom to top
 
         lastX = xPos;
         lastY = yPos;
@@ -130,10 +161,11 @@ namespace BG3DRenderer::Core {
         scene->mainCamera->ProcessMouseMovement(xOffset, yOffset);
     }
 
-
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
     void Scene::scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
+        if (ImGui::GetIO().WantCaptureMouse) return; // ✅ Prevent scrolling if ImGui is using the scroll wheel
+
         Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
         if (!scene || !scene->mainCamera) return;
 

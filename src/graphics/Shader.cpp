@@ -116,6 +116,14 @@ namespace BG3DRenderer::Graphics
         glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
     }
 
+    void Shader::SetVec3(const std::string& name, glm::vec3 vec) const {
+        glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(vec));
+    }
+
+    void Shader::SetVec4(const std::string& name, glm::vec4 vec) const {
+        glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(vec));
+    }
+
     void Shader::checkCompileErrors(unsigned int shader, const std::string& type) {
         int success;
         char infoLog[1024];

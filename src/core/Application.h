@@ -30,6 +30,8 @@ namespace BG3DRenderer::Core {
         Application();
         ~Application();
         void Run();
+
+        static float DeltaTime;
     };
 }
 

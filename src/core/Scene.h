@@ -7,18 +7,30 @@
 
 #include "SceneObject.h"
 #include <memory>
-
 #include "Camera.h"
-#include "../graphics/Renderer.h"
 #include "Input.h"
+#include "../lighting/Light.h"
+
+namespace BG3DRenderer::Lighting
+{
+    class Light;
+}
 
 using namespace std;
+
+// Forward declaration
+namespace BG3DRenderer::Graphics {
+    class Renderer;
+}
 
 namespace BG3DRenderer::Core {
     class Scene {
     private:
         shared_ptr<vector<SceneObject>> sceneObjects = make_shared<vector<SceneObject>>();
+        shared_ptr<vector<Lighting::Light>> sceneLights = make_shared<vector<Lighting::Light>>();
+
         shared_ptr<Camera> mainCamera;
+
         Renderer* renderer;
         Input* input;
 
@@ -29,13 +41,24 @@ namespace BG3DRenderer::Core {
         void AddSceneObject(SceneObject& sceneObject);
         void RemoveSceneObject(SceneObject* sceneObject);
 
+        void AddLight(Lighting::Light& light);
+        void RemoveLight(Lighting::Light* light);
+
         void Start();
         void Update(float deltaTime);
-        void Render();
 
-        SceneObject& GetSceneObject(int index);
-        int GetSceneObjectCount() {
+        std::shared_ptr<vector<SceneObject>> GetSceneObjects();
+        SceneObject& GetSceneObject(int index) const;
+        int GetSceneObjectCount()
+        {
             return sceneObjects->size();
+        }
+
+        std::shared_ptr<vector<Lighting::Light>> GetSceneLights();
+        Lighting::Light& GetSceneLight(int index) const;
+        int GetSceneLightsCount()
+        {
+            return sceneLights->size();
         }
 
         shared_ptr<Camera> GetCamera();

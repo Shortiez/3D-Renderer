@@ -11,6 +11,11 @@
 
 using namespace BG3DRenderer::Core;
 
+// Forward declaration
+namespace BG3DRenderer::Core {
+	class Scene;
+}
+
 namespace BG3DRenderer::Graphics{
 	class Renderer {
 	private:
@@ -30,9 +35,9 @@ namespace BG3DRenderer::Graphics{
 		Renderer();
 
 		void UpdateFrameTime();
-		void Render(const std::vector<SceneObject*>& objects);
+		void Render(Scene& scene);
 
-		void SetCamera(const std::shared_ptr<Camera> camera);
+		void SetCamera(std::shared_ptr<Camera> camera);
 
         std::shared_ptr<Shader> GetShader();
 

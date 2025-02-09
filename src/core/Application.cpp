@@ -11,6 +11,8 @@ using namespace BG3DRenderer::Graphics;
 
 namespace BG3DRenderer::Core {
 
+    float Application::DeltaTime = 0;
+
     Application::Application()
             : appWindow(1200, 960, "3D Window"),   // ✅ Initialize window first
               appRenderer(Renderer()), // ✅ Now shader exists before this line
@@ -26,9 +28,12 @@ namespace BG3DRenderer::Core {
         glfwSetCursorPosCallback(appWindow.GetWindow(), Scene::mouse_callback);
 
         glfwSetInputMode(appWindow.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(appWindow.GetWindow(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
         deltaTime = 0;
         lastFrame = 0;
+
+        DeltaTime = 0;
     }
 
     Application::~Application() {
@@ -40,13 +45,13 @@ namespace BG3DRenderer::Core {
             auto currentFrame = static_cast<float>(glfwGetTime());
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
+            DeltaTime = deltaTime;
 
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // Render here
             appScene.Update(deltaTime);
-            appScene.Render();
+            appRenderer.Render(appScene);
 
             profilerUI.Render(appScene, appRenderer);
 

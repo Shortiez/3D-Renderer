@@ -6,8 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <utility>
 #include "ShaderManager.h"
-
-#include "ShaderManager.h"
+#include "../core/Scene.h"  // Include full definition of Scene
+#include "../lighting/Light.h"
 
 namespace BG3DRenderer::Graphics{
 
@@ -17,7 +17,7 @@ namespace BG3DRenderer::Graphics{
         activeShader->Use();
     }
 
-    void Renderer::Render(const std::vector<SceneObject*>& objects) {
+    void Renderer::Render(Scene& scene) {
         activeShader->Use();
 
         // Update view and projection matrices
@@ -32,12 +32,16 @@ namespace BG3DRenderer::Graphics{
         activeShader->SetMat4("view", view);
         activeShader->SetMat4("projection", projection);
 
-        for (auto& object : objects) {
-            object->Render(activeShader);
+        for (auto& object : *scene.GetSceneObjects()) {
+            object.Render(activeShader);
+        }
+
+        for (auto& light : *scene.GetSceneLights()) {
+            light.Render(activeShader, activeCamera);
         }
     }
 
-    void Renderer::SetCamera(const std::shared_ptr<Camera> camera) {
+    void Renderer::SetCamera(std::shared_ptr<Camera> camera) {
         activeCamera = camera;
     }
 

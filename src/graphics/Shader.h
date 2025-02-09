@@ -35,6 +35,8 @@ namespace BG3DRenderer::Graphics {
         void SetFloat(const std::string& name, float value) const;
         void SetColour(const std::string& name, Colour color) const;
         void SetMat4(const std::string& name, glm::mat4 mat) const;
+        void SetVec3(const std::string& name, glm::vec3 vec) const;
+        void SetVec4(const std::string& name, glm::vec4 vec) const;
     private:
         Shader(const std::string& vPath, const std::string& fPath);
 

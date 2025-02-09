@@ -38,7 +38,8 @@ namespace BG3DRenderer::Debug {
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
-    void DebugProfilerUI::Render(Scene& scene, Renderer& renderer) {
+   void DebugProfilerUI::Render(Scene& scene, Renderer& renderer)
+    {
         NewFrame();
 
         // Set upside menu window flags and size
@@ -83,12 +84,31 @@ namespace BG3DRenderer::Debug {
             // Renderer Data Section - Always visible
             ImGui::TextUnformatted("Renderer Data");
             ImGui::Separator();
-            ImGui::Text("Meshes Rendered: %d", static_cast<int>(scene.GetSceneObjectCount()));
+            ImGui::Text("Scene Objects Rendered: %d", scene.GetSceneObjectCount());
 
             for (size_t i = 0; i < scene.GetSceneObjectCount(); ++i) {
-                ImGui::Text("Mesh %zu", i);
-                // Mesh-specific data can be added here
-                ImGui::Separator();
+                ImGui::BeginChild(("Scene Object " + std::to_string(i)).c_str(), ImVec2(0, 100), true);
+                const auto& obj = scene.GetSceneObject(i);
+                ImGui::Text("Position: %.2f, %.2f, %.2f", obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+                ImGui::Text("Rotation: %.2f, %.2f, %.2f", obj.transform.rotation.x, obj.transform.rotation.y, obj.transform.rotation.z);
+                ImGui::Text("Scale: %.2f, %.2f, %.2f", obj.transform.scale.x, obj.transform.scale.y, obj.transform.scale.z);
+                ImGui::EndChild();
+            }
+
+            ImGui::Spacing();
+            ImGui::Spacing();
+
+            ImGui::TextUnformatted("Lights Data");
+            ImGui::Separator();
+            ImGui::Text("Scene Lights: %d", scene.GetSceneLightsCount());
+
+            for (size_t i = 0; i < scene.GetSceneLightsCount(); ++i) {
+                ImGui::BeginChild(("Light " + std::to_string(i)).c_str(), ImVec2(0, 100), true);
+                const auto& light = scene.GetSceneLight(i);
+                ImGui::Text("Position: %.2f, %.2f, %.2f", light.transform.position.x, light.transform.position.y, light.transform.position.z);
+                ImGui::Text("Intensity: %.2f", light.intensity);
+                ImGui::Text("Colour: %.2f, %.2f, %.2f", light.colour.r, light.colour.g, light.colour.b);
+                ImGui::EndChild();
             }
 
             /*

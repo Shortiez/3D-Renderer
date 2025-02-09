@@ -5,6 +5,8 @@
 #include "../graphics/Shader.h"
 #include <memory>
 
+#include "Transform.h"
+
 using namespace BG3DRenderer::Graphics;
 
 namespace BG3DRenderer::Core {
@@ -13,15 +15,11 @@ namespace BG3DRenderer::Core {
         SceneObject(std::shared_ptr<Mesh> mesh);
         ~SceneObject();
 
-        void Update();
-        void Render(std::shared_ptr<Shader> shader);
+        virtual void Update();
+        virtual void Render(std::shared_ptr<Shader> shader);
 
-        void Translate(glm::vec3 position);
-        void Rotate(float angle, glm::vec3 axis);
-        void Scale(glm::vec3 scale);
-
+        Transform transform;
         std::shared_ptr<Mesh> mesh;
-        glm::mat4 transform = glm::mat4(1.0f);
     };
 }
 
