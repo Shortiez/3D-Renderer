@@ -6,6 +6,8 @@ namespace BG3DRenderer::Lighting {
     DirectionalLight::DirectionalLight() : Light() {
         // Initialize any DirectionalLight-specific members
         direction = glm::vec3(-0.2f, -1.0f, -0.3f); // Default direction
+
+        type = LightType::Directional;
     }
 
     void DirectionalLight::Update() {

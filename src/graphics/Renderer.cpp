@@ -23,7 +23,7 @@ namespace BG3DRenderer::Graphics{
         // Update view and projection matrices
         glm::mat4 view = activeCamera->GetViewMatrix();
 
-        // TODO: FIX THIS ASPECT RATIO
+        // TODO: FIX THIS TO USE A STATIC ASPECT RATIO METHOD
         glm::mat4 projection = glm::perspective(
                 glm::radians(activeCamera->Zoom),
 #ifdef __APPLE__
@@ -38,12 +38,27 @@ namespace BG3DRenderer::Graphics{
         activeShader->SetMat4("view", view);
         activeShader->SetMat4("projection", projection);
 
+        activeShader->SetInt("activePointLights", std::count_if(scene.GetSceneLights().begin(),
+                                                                scene.GetSceneLights().end(), [](const auto& light)
+                                                                {
+                                                                    return light->GetType() == LightType::Point;
+                                                                }));
+
         for (auto& object : *scene.GetSceneObjects()) {
             object.Render(activeShader);
         }
 
-        for (auto& light : scene.GetSceneLights()) {
-            light->Render(activeShader, activeCamera);
+        for (int i = 0; i < scene.GetSceneLights().size(); ++i)
+        {
+            auto& light = scene.GetSceneLights()[i];
+            if (light->GetType() == LightType::Point)
+            {
+                light->Render(activeShader, activeCamera, i - 1);
+            }
+            else
+            {
+                light->Render(activeShader, activeCamera);
+            }
         }
     }
 

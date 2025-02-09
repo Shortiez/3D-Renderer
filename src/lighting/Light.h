@@ -7,6 +7,12 @@
 #include "../core/Camera.h"
 #include "../core/SceneObject.h"
 
+enum class LightType {
+    Directional,
+    Point,
+    Spot
+};
+
 namespace BG3DRenderer::Lighting{
     class Light{
     public:
@@ -21,9 +27,14 @@ namespace BG3DRenderer::Lighting{
 
         virtual void Update();
         virtual void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera);
+        virtual void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera, int lightIndex);
 
         Core::Transform transform;
         std::shared_ptr<Graphics::Mesh> mesh;
+
+        LightType GetType() const { return type; }
+    protected:
+        LightType type;
     };
 }
 

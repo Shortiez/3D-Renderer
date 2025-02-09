@@ -15,6 +15,8 @@ namespace BG3DRenderer::Lighting {
         
         // Default direction (pointing down -Z axis)
         direction = glm::vec3(0.0f, 0.0f, -1.0f);
+
+        type = LightType::Spot;
     }
 
     void SpotLight::SetCutOffAngles(float innerAngle, float outerAngle) {

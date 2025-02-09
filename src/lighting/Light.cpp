@@ -34,4 +34,12 @@ namespace BG3DRenderer::Lighting{
         shader->SetMat4("model", transform.GetModelMatrix());
         mesh->DrawMesh(shader);
     }
+
+    void Light::Render(std::shared_ptr<Shader> shader, std::shared_ptr<Core::Camera> camera, int lightIndex) {
+        shader->SetVec3("lightPos", transform.position);
+        shader->SetVec3("viewPos", camera->Position);
+
+        shader->SetMat4("model", transform.GetModelMatrix());
+        mesh->DrawMesh(shader);
+    }
 }

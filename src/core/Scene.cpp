@@ -51,30 +51,6 @@ namespace BG3DRenderer::Core {
         dirLight->transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
         AddLight(std::move(dirLight));
 
-        /*
-        auto greenLight = std::make_unique<Lighting::PointLight>();
-        greenLight->transform.position = glm::vec3(-2.0f, 1.0f, -2.0f);
-        greenLight->diffuse = Colour::Green();
-        greenLight->SetAttenuation(1.0f, 0.09f, 0.032f);
-        AddLight(std::move(greenLight));
-
-        auto blueLight = std::make_unique<Lighting::PointLight>();
-        blueLight->transform.position = glm::vec3(-2.0f, 1.0f, -2.0f);
-        blueLight->diffuse = Colour::Blue();
-        blueLight->SetAttenuation(1.0f, 0.09f, 0.032f);
-        AddLight(std::move(blueLight));
-        */
-        /*
-        // Create a spotlight (like a flashlight)
-        auto spotLight = std::make_unique<Lighting::SpotLight>();
-        spotLight->transform.position = glm::vec3(0.0f, 3.0f, 0.0f);
-        spotLight->SetDirection(glm::normalize(glm::vec3(0.0f, -1.0f, -1.0f)));
-        spotLight->SetCutOffAngles(12.5f, 17.5f);
-        spotLight->diffuse = Colour::Red();
-        spotLight->SetAttenuation(1.0f, 0.09f, 0.032f);
-        AddLight(std::move(spotLight));
-*/
-        
         auto material = make_shared<Graphics::Material>(Material::emerald);
 
         auto cube = MeshLibrary::Cube(1);
