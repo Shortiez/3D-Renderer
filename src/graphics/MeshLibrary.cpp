@@ -19,30 +19,55 @@ namespace BG3DRenderer::Graphics{
         return {vertices, indices};
     }
 
-    Mesh MeshLibrary::Cube(float size) {
+    Mesh MeshLibrary::Cube(float size)
+    {
         float halfSize = size / 2;
 
         std::vector<Vertex> vertices = {
-                // Front face
-                {{-halfSize, -halfSize,  halfSize}, {0.0f, 0.0f,  1.0f}, {0.0f, 0.0f}},
-                {{ halfSize, -halfSize,  halfSize}, {0.0f, 0.0f,  1.0f}, {1.0f, 0.0f}},
-                {{ halfSize,  halfSize,  halfSize}, {0.0f, 0.0f,  1.0f}, {1.0f, 1.0f}},
-                {{-halfSize,  halfSize,  halfSize}, {0.0f, 0.0f,  1.0f}, {0.0f, 1.0f}},
+            // Front face
+            {{-halfSize, -halfSize,  halfSize}, { 0.0f,  0.0f,  1.0f}, {0.0f, 0.0f}},
+            {{ halfSize, -halfSize,  halfSize}, { 0.0f,  0.0f,  1.0f}, {1.0f, 0.0f}},
+            {{ halfSize,  halfSize,  halfSize}, { 0.0f,  0.0f,  1.0f}, {1.0f, 1.0f}},
+            {{-halfSize,  halfSize,  halfSize}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f}},
 
-                // Back face
-                {{-halfSize, -halfSize, -halfSize}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}},
-                {{ halfSize, -halfSize, -halfSize}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}},
-                {{ halfSize,  halfSize, -halfSize}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}},
-                {{-halfSize,  halfSize, -halfSize}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}}
+            // Back face
+            {{-halfSize, -halfSize, -halfSize}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f}},
+            {{ halfSize, -halfSize, -halfSize}, { 0.0f,  0.0f, -1.0f}, {1.0f, 0.0f}},
+            {{ halfSize,  halfSize, -halfSize}, { 0.0f,  0.0f, -1.0f}, {1.0f, 1.0f}},
+            {{-halfSize,  halfSize, -halfSize}, { 0.0f,  0.0f, -1.0f}, {0.0f, 1.0f}},
+
+            // Left face
+            {{-halfSize, -halfSize, -halfSize}, {-1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+            {{-halfSize, -halfSize,  halfSize}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+            {{-halfSize,  halfSize,  halfSize}, {-1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+            {{-halfSize,  halfSize, -halfSize}, {-1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+
+            // Right face
+            {{ halfSize, -halfSize, -halfSize}, { 1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+            {{ halfSize, -halfSize,  halfSize}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+            {{ halfSize,  halfSize,  halfSize}, { 1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+            {{ halfSize,  halfSize, -halfSize}, { 1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+
+            // Top face
+            {{-halfSize,  halfSize, -halfSize}, { 0.0f,  1.0f,  0.0f}, {0.0f, 0.0f}},
+            {{ halfSize,  halfSize, -halfSize}, { 0.0f,  1.0f,  0.0f}, {1.0f, 0.0f}},
+            {{ halfSize,  halfSize,  halfSize}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f}},
+            {{-halfSize,  halfSize,  halfSize}, { 0.0f,  1.0f,  0.0f}, {0.0f, 1.0f}},
+
+            // Bottom face
+            {{-halfSize, -halfSize, -halfSize}, { 0.0f, -1.0f,  0.0f}, {0.0f, 0.0f}},
+            {{ halfSize, -halfSize, -halfSize}, { 0.0f, -1.0f,  0.0f}, {1.0f, 0.0f}},
+            {{ halfSize, -halfSize,  halfSize}, { 0.0f, -1.0f,  0.0f}, {1.0f, 1.0f}},
+            {{-halfSize, -halfSize,  halfSize}, { 0.0f, -1.0f,  0.0f}, {0.0f, 1.0f}}
         };
 
         std::vector<unsigned int> indices = {
-                0, 1, 2, 0, 2, 3,  // Front
-                4, 5, 6, 4, 6, 7,  // Back
-                0, 3, 7, 0, 7, 4,  // Left
-                1, 2, 6, 1, 6, 5,  // Right
-                3, 2, 6, 3, 6, 7,  // Top
-                0, 1, 5, 0, 5, 4   // Bottom
+            0, 1, 2, 0, 2, 3,  // Front
+            4, 5, 6, 4, 6, 7,  // Back
+            8, 9, 10, 8, 10, 11, // Left
+            12, 13, 14, 12, 14, 15, // Right
+            16, 17, 18, 16, 18, 19, // Top
+            20, 21, 22, 20, 22, 23  // Bottom
         };
 
         return {vertices, indices};

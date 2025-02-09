@@ -49,15 +49,19 @@ namespace BG3DRenderer::Core {
         light.transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
         AddLight(light);
 
-        auto mesh = MeshLibrary::Cube(1.0f);
-
         auto material = std::make_shared<Material>();
         material->SetBaseColor(Colour::Red());
 
-        mesh.SetMaterial(material);
-
-        SceneObject sceneObject = SceneObject(make_shared<Mesh>(mesh));
+        auto cube = MeshLibrary::Cube(1);
+        cube.SetMaterial(material);
+        SceneObject sceneObject = SceneObject(make_shared<Mesh>(cube));
         AddSceneObject(sceneObject);
+
+        auto sphere = MeshLibrary::Sphere(0.5f, 24);
+        sphere.SetMaterial(material);
+        SceneObject sceneObject2 = SceneObject(make_shared<Mesh>(sphere));
+        sceneObject2.transform.position = glm::vec3(3.0f, 0.0f, 0.0f);
+        AddSceneObject(sceneObject2);
     }
 
     void Scene::Update(float deltaTime) {
@@ -88,7 +92,7 @@ namespace BG3DRenderer::Core {
             GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Blue());
         }
 
-        GetSceneObject(0).transform.Rotate(glm::vec3(0, 0, 1));
+        //GetSceneObject(0).transform.Rotate(glm::vec3(0, 0, 1));
     }
 
     void Scene::internalUpdate() {

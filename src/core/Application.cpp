@@ -27,7 +27,7 @@ namespace BG3DRenderer::Core {
         glfwSetScrollCallback(appWindow.GetWindow(), Scene::scroll_callback);
         glfwSetCursorPosCallback(appWindow.GetWindow(), Scene::mouse_callback);
 
-        glfwSetInputMode(appWindow.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(appWindow.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwSetInputMode(appWindow.GetWindow(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
         deltaTime = 0;
