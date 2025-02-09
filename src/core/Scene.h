@@ -27,8 +27,7 @@ namespace BG3DRenderer::Core {
     class Scene {
     private:
         shared_ptr<vector<SceneObject>> sceneObjects = make_shared<vector<SceneObject>>();
-        shared_ptr<vector<Lighting::Light>> sceneLights = make_shared<vector<Lighting::Light>>();
-
+        std::vector<std::unique_ptr<Lighting::Light>> sceneLights;
         shared_ptr<Camera> mainCamera;
 
         Renderer* renderer;
@@ -41,7 +40,7 @@ namespace BG3DRenderer::Core {
         void AddSceneObject(SceneObject& sceneObject);
         void RemoveSceneObject(SceneObject* sceneObject);
 
-        void AddLight(Lighting::Light& light);
+        void AddLight(std::unique_ptr<Lighting::Light> light);
         void RemoveLight(Lighting::Light* light);
 
         void Start();
@@ -54,11 +53,11 @@ namespace BG3DRenderer::Core {
             return sceneObjects->size();
         }
 
-        std::shared_ptr<vector<Lighting::Light>> GetSceneLights();
-        Lighting::Light& GetSceneLight(int index) const;
+        vector<unique_ptr<Lighting::Light>>& GetSceneLights();
+        unique_ptr<Lighting::Light>& GetSceneLight(int index) const;
         int GetSceneLightsCount()
         {
-            return sceneLights->size();
+            return sceneLights.size();
         }
 
         shared_ptr<Camera> GetCamera();

@@ -104,12 +104,13 @@ namespace BG3DRenderer::Debug {
 
             for (size_t i = 0; i < scene.GetSceneLightsCount(); ++i) {
                 ImGui::BeginChild(("Light " + std::to_string(i)).c_str(), ImVec2(0, 100), true);
-                const auto& light = scene.GetSceneLight(i);
-                ImGui::Text("Position: %.2f, %.2f, %.2f", light.transform.position.x, light.transform.position.y, light.transform.position.z);
-                ImGui::Text("Intensity: %.2f", light.intensity);
-                ImGui::Text("Ambient: %.2f, %.2f, %.2f", light.ambient.r, light.ambient.g, light.ambient.b);
-                ImGui::Text("Diffuse: %.2f, %.2f, %.2f", light.diffuse.r, light.diffuse.g, light.diffuse.b);
-                ImGui::Text("Specular: %.2f, %.2f, %.2f", light.specular.r, light.specular.g, light.specular.b);
+                const auto &light = scene.GetSceneLight(i);
+                ImGui::Text("Position: %.2f, %.2f, %.2f", light->transform.position.x, light->transform.position.y,
+                            light->transform.position.z);
+                ImGui::Text("Intensity: %.2f", light->intensity);
+                ImGui::Text("Ambient: %.2f, %.2f, %.2f", light->ambient.r, light->ambient.g, light->ambient.b);
+                ImGui::Text("Diffuse: %.2f, %.2f, %.2f", light->diffuse.r, light->diffuse.g, light->diffuse.b);
+                ImGui::Text("Specular: %.2f, %.2f, %.2f", light->specular.r, light->specular.g, light->specular.b);
                 ImGui::EndChild();
             }
 

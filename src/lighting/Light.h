@@ -11,6 +11,7 @@ namespace BG3DRenderer::Lighting{
     class Light{
     public:
         Light();
+        virtual ~Light() = default;
 
         Colour ambient = Colour(0.2f, 0.2f, 0.2f);
         Colour diffuse = Colour(0.5f, 0.5f, 0.5f);
@@ -18,8 +19,8 @@ namespace BG3DRenderer::Lighting{
 
         float intensity = 1.0f;
 
-        void Update();
-        void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera);
+        virtual void Update();
+        virtual void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera);
 
         Core::Transform transform;
         std::shared_ptr<Graphics::Mesh> mesh;

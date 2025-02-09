@@ -47,6 +47,9 @@ set(SOURCES
         src/debug/RenderDocIntegration.cpp
 
         src/lighting/Light.cpp
+        src/lighting/DirectionalLight.cpp
+        src/lighting/SpotLight.cpp
+        src/lighting/PointLight.cpp
 )
 
 # Create the executable

@@ -22,11 +22,17 @@ namespace BG3DRenderer::Graphics{
 
         // Update view and projection matrices
         glm::mat4 view = activeCamera->GetViewMatrix();
+
+        // TODO: FIX THIS ASPECT RATIO
         glm::mat4 projection = glm::perspective(
-            glm::radians(activeCamera->Zoom),
-            16.0f / 9.0f,
-            0.1f,
-            100.0f
+                glm::radians(activeCamera->Zoom),
+#ifdef __APPLE__
+                16.0f / 10.0f,
+#else  // Assume Windows
+                16.0f / 9.0f,
+#endif
+                0.1f,
+                100.0f
         );
 
         activeShader->SetMat4("view", view);
@@ -36,8 +42,8 @@ namespace BG3DRenderer::Graphics{
             object.Render(activeShader);
         }
 
-        for (auto& light : *scene.GetSceneLights()) {
-            light.Render(activeShader, activeCamera);
+        for (auto& light : scene.GetSceneLights()) {
+            light->Render(activeShader, activeCamera);
         }
     }
 

@@ -9,6 +9,9 @@
 #include "../graphics/Renderer.h"
 #include "../graphics/MeshLibrary.h"
 #include "../lighting/Light.h"
+#include "../lighting/DirectionalLight.h"
+#include "../lighting/PointLight.h"
+#include "../lighting/SpotLight.h"
 
 using namespace std;
 
@@ -36,19 +39,42 @@ namespace BG3DRenderer::Core {
         // TODO: Implement
     }
 
-    void Scene::AddLight(Lighting::Light& light) {
-        sceneLights->push_back(light);
+    void Scene::AddLight(std::unique_ptr<Lighting::Light> light) {
+        sceneLights.push_back(std::move(light));
     }
 
     void Scene::RemoveLight(Lighting::Light* light){
-
     }
 
     void Scene::Start() {
-        Lighting::Light light = Lighting::Light();
-        light.transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
-        AddLight(light);
+        auto dirLight = std::make_unique<Lighting::DirectionalLight>();
+        dirLight->transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
+        AddLight(std::move(dirLight));
 
+        /*
+        auto greenLight = std::make_unique<Lighting::PointLight>();
+        greenLight->transform.position = glm::vec3(-2.0f, 1.0f, -2.0f);
+        greenLight->diffuse = Colour::Green();
+        greenLight->SetAttenuation(1.0f, 0.09f, 0.032f);
+        AddLight(std::move(greenLight));
+
+        auto blueLight = std::make_unique<Lighting::PointLight>();
+        blueLight->transform.position = glm::vec3(-2.0f, 1.0f, -2.0f);
+        blueLight->diffuse = Colour::Blue();
+        blueLight->SetAttenuation(1.0f, 0.09f, 0.032f);
+        AddLight(std::move(blueLight));
+        */
+        /*
+        // Create a spotlight (like a flashlight)
+        auto spotLight = std::make_unique<Lighting::SpotLight>();
+        spotLight->transform.position = glm::vec3(0.0f, 3.0f, 0.0f);
+        spotLight->SetDirection(glm::normalize(glm::vec3(0.0f, -1.0f, -1.0f)));
+        spotLight->SetCutOffAngles(12.5f, 17.5f);
+        spotLight->diffuse = Colour::Red();
+        spotLight->SetAttenuation(1.0f, 0.09f, 0.032f);
+        AddLight(std::move(spotLight));
+*/
+        
         auto material = make_shared<Graphics::Material>(Material::emerald);
 
         auto cube = MeshLibrary::Cube(1);
@@ -102,8 +128,8 @@ namespace BG3DRenderer::Core {
             object.Update();
         }
 
-        for (auto& light : *sceneLights) {
-            light.Update();
+        for (auto& light : sceneLights) {
+            light->Update();  // This will call the appropriate derived class Update()
         }
     }
 
@@ -119,14 +145,17 @@ namespace BG3DRenderer::Core {
         return sceneObjects->at(index);
     }
 
-    std::shared_ptr<vector<Lighting::Light>> Scene::GetSceneLights() {
+    std::vector<std::unique_ptr<Lighting::Light>>& Scene::GetSceneLights() {
         return sceneLights;
     }
 
-    Lighting::Light& Scene::GetSceneLight(int index) const {
-        return sceneLights->at(index);
+    std::unique_ptr<Lighting::Light>& Scene::GetSceneLight(int index) const {
+        if (index >= sceneLights.size()) {
+            throw std::out_of_range("Light index out of range");
+        }
+        return const_cast<std::unique_ptr<Lighting::Light>&>(sceneLights[index]);
     }
-
+    
     shared_ptr<Camera> Scene::GetCamera() {
         return mainCamera;
     }
