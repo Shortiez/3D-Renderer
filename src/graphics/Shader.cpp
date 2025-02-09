@@ -108,10 +108,6 @@ namespace BG3DRenderer::Graphics
         glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
     }
 
-    void Shader::SetColour(const std::string& name, Colour color) const {
-        glUniform4f(glGetUniformLocation(ID, name.c_str()), color.r, color.g, color.b, color.a);
-    }
-
     void Shader::SetMat4(const std::string& name, glm::mat4 mat) const {
         glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
     }

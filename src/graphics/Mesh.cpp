@@ -143,7 +143,6 @@ namespace BG3DRenderer::Graphics {
         }
 
         material->UpdateMaterial(shader);
-
         shader->Use();
 
         glBindVertexArray(VAO);

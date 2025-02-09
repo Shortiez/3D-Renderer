@@ -14,7 +14,6 @@ namespace BG3DRenderer::Lighting{
     }
 
     void Light::Update() {
-        /*
         static float angle = 0.0f;
         float radius = 2.0f; // Radius of the orbit
         float speed = glm::pi<float>() / 4.0f; // Speed of the orbit (radians per second)
@@ -24,13 +23,12 @@ namespace BG3DRenderer::Lighting{
         // Calculate the new position
         transform.position.x = radius * cos(angle);
         transform.position.z = radius * sin(angle);
-        */
     }
 
     void Light::Render(std::shared_ptr<Shader> shader, std::shared_ptr<Core::Camera> camera) {
-        shader->SetVec3("LightPos", transform.position);
-        shader->SetVec3("LightColour", colour.ToVec3());
-        shader->SetVec3("ViewPos", camera->Position);
+        shader->SetVec3("lightPos", transform.position);
+        shader->SetVec3("lightColour", colour.ToVec3());
+        shader->SetVec3("viewPos", camera->Position);
 
         shader->SetMat4("model", transform.GetModelMatrix());
         mesh->DrawMesh(shader);

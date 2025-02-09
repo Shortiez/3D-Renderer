@@ -49,8 +49,7 @@ namespace BG3DRenderer::Core {
         light.transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
         AddLight(light);
 
-        auto material = std::make_shared<Material>();
-        material->SetBaseColor(Colour::Red());
+        auto material = make_shared<Graphics::Material>(Material::emerald);
 
         auto cube = MeshLibrary::Cube(1);
         cube.SetMaterial(material);
@@ -79,17 +78,17 @@ namespace BG3DRenderer::Core {
 
         if (input->IsKeyPressed(GLFW_KEY_0))
         {
-            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Red());
+            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Red());
         }
 
         if (input->IsKeyHeld(GLFW_KEY_1))
         {
-            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Green());
+            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Green());
         }
 
         if (input->IsKeyPressed(GLFW_KEY_2))
         {
-            GetSceneObject(0).mesh->GetMaterial()->SetBaseColor(Colour::Blue());
+            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Blue());
         }
 
         //GetSceneObject(0).transform.Rotate(glm::vec3(0, 0, 1));
