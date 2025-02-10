@@ -8,8 +8,10 @@
 #include "Window.h"
 #include "../graphics/Renderer.h"
 #include "../core/Scene.h"
-#include "../debug/DebugProfilerUI.h"
 #include "Input.h"
+#include "../ui/DebugProfilerUI.h"
+#include "../ui/App_TopBarUI.h"
+#include "../ui/ImGuiManager.h"
 
 using namespace glm;
 
@@ -19,10 +21,11 @@ namespace BG3DRenderer::Core {
         Window appWindow;
         Renderer appRenderer;
 
-        Scene appScene;
         Input appInput;
 
-        Debug::DebugProfilerUI profilerUI;
+        UI::ImGuiManager imGuiManager;
+        UI::DebugProfilerUI profilerUI;
+        UI::App_TopBarUI topUI;
 
         float deltaTime;
         float lastFrame;

@@ -28,6 +28,7 @@ set(SOURCES
 
         src/core/Application.cpp
         src/core/Window.cpp
+        src/core/SceneManager.cpp
         src/core/Scene.cpp
         src/core/SceneObject.cpp
         src/core/Camera.cpp
@@ -43,17 +44,24 @@ set(SOURCES
         src/graphics/Vertex.cpp
         src/graphics/Colour.cpp
 
-        src/debug/DebugProfilerUI.cpp
-        src/debug/RenderDocIntegration.cpp
-
         src/lighting/Light.cpp
         src/lighting/DirectionalLight.cpp
         src/lighting/SpotLight.cpp
         src/lighting/PointLight.cpp
+
+        src/ui/ImGuiManager.cpp
+        src/ui/UIElement.cpp
+        src/ui/App_TopBarUI.cpp
+        src/ui/DebugProfilerUI.cpp
+)
+
+set(DEMOS
+        demos/demo_SpinningCube/Scene_SpinningCube.cpp
+        demos/demo_LightRoom/Scene_LightRoom.cpp
 )
 
 # Create the executable
-add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} src/renderdoc_app.h src/glad.c)
+add_executable(3D_Renderer ${SOURCES} ${IMGUI_SOURCES} ${DEMOS} src/renderdoc_app.h src/glad.c)
 
 # Platform-specific GLFW setup
 if (APPLE)

@@ -8,21 +8,17 @@
 #include "imgui_impl_opengl3.h"
 #include "../graphics/Renderer.h"
 #include "../core/Scene.h"
+#include "UIElement.h"
 
 using namespace BG3DRenderer::Graphics;
 
-namespace BG3DRenderer::Debug {
-    class DebugProfilerUI {
+namespace BG3DRenderer::UI {
+    class DebugProfilerUI : public UIElement{
     public:
-        DebugProfilerUI(GLFWwindow *window);
+        DebugProfilerUI();
         ~DebugProfilerUI();
 
-        void Render(Scene &scene, Renderer &renderer);
-
-    private:
-        void NewFrame();
-
-        void EndFrame();
+        void Render(Scene &scene, Renderer &renderer) override;
     };
 }
 #endif

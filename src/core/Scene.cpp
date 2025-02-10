@@ -5,6 +5,7 @@
 #include "Scene.h"
 
 #include <imgui.h>
+#include <imgui_impl_glfw.h>
 
 #include "../graphics/Renderer.h"
 #include "../graphics/MeshLibrary.h"
@@ -16,6 +17,10 @@
 using namespace std;
 
 namespace BG3DRenderer::Core {
+
+    Scene::Scene(){
+
+    }
 
     Scene::Scene(Graphics::Renderer* renderer, Input* input) :
        renderer(renderer),
@@ -29,6 +34,11 @@ namespace BG3DRenderer::Core {
 
     Scene::~Scene() {
 
+    }
+
+    void Scene::Init(Renderer* renderer, Input* input){
+        this->renderer = renderer;
+        this->input = input;
     }
 
     void Scene::AddSceneObject(SceneObject& sceneObject) {
@@ -47,22 +57,6 @@ namespace BG3DRenderer::Core {
     }
 
     void Scene::Start() {
-        auto dirLight = std::make_unique<Lighting::DirectionalLight>();
-        dirLight->transform.position = glm::vec3(1.2f, 1.0f, 2.0f);
-        AddLight(std::move(dirLight));
-
-        auto material = make_shared<Graphics::Material>(Material::emerald);
-
-        auto cube = MeshLibrary::Cube(1);
-        cube.SetMaterial(material);
-        SceneObject sceneObject = SceneObject(make_shared<Mesh>(cube));
-        AddSceneObject(sceneObject);
-
-        auto sphere = MeshLibrary::Sphere(0.5f, 24);
-        sphere.SetMaterial(material);
-        SceneObject sceneObject2 = SceneObject(make_shared<Mesh>(sphere));
-        sceneObject2.transform.position = glm::vec3(3.0f, 0.0f, 0.0f);
-        AddSceneObject(sceneObject2);
     }
 
     void Scene::Update(float deltaTime) {
@@ -77,23 +71,6 @@ namespace BG3DRenderer::Core {
             mainCamera->ProcessKeyboard(BACKWARD, deltaTime);
         if(input->IsKeyHeld(GLFW_KEY_D))
             mainCamera->ProcessKeyboard(RIGHT, deltaTime);
-
-        if (input->IsKeyPressed(GLFW_KEY_0))
-        {
-            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Red());
-        }
-
-        if (input->IsKeyHeld(GLFW_KEY_1))
-        {
-            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Green());
-        }
-
-        if (input->IsKeyPressed(GLFW_KEY_2))
-        {
-            GetSceneObject(0).mesh->GetMaterial()->SetColour(Colour::Blue());
-        }
-
-        //GetSceneObject(0).transform.Rotate(glm::vec3(0, 0, 1));
     }
 
     void Scene::internalUpdate() {
@@ -143,7 +120,7 @@ namespace BG3DRenderer::Core {
     // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
     void Scene::mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn) {
-        if (ImGui::GetIO().WantCaptureMouse) return; // ✅ Prevent camera movement when ImGui is active
+        ImGui_ImplGlfw_CursorPosCallback(window, xPosIn, yPosIn);
 
         Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
         if (!scene || !scene->mainCamera) return;
@@ -172,6 +149,8 @@ namespace BG3DRenderer::Core {
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
     void Scene::scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
+        ImGui_ImplGlfw_ScrollCallback(window, xOffset, yOffset);
+
         if (ImGui::GetIO().WantCaptureMouse) return; // ✅ Prevent scrolling if ImGui is using the scroll wheel
 
         Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));

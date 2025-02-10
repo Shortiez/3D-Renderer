@@ -35,16 +35,20 @@ namespace BG3DRenderer::Core {
 
         void internalUpdate();
     public:
+        Scene();
         Scene(Renderer* renderer, Input* input);
-        ~Scene();
+        virtual ~Scene();
+
+        void Init(Renderer* renderer, Input* input);
+
         void AddSceneObject(SceneObject& sceneObject);
         void RemoveSceneObject(SceneObject* sceneObject);
 
         void AddLight(std::unique_ptr<Lighting::Light> light);
         void RemoveLight(Lighting::Light* light);
 
-        void Start();
-        void Update(float deltaTime);
+        virtual void Start();
+        virtual void Update(float deltaTime);
 
         std::shared_ptr<vector<SceneObject>> GetSceneObjects();
         SceneObject& GetSceneObject(int index) const;

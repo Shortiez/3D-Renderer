@@ -4,8 +4,11 @@
 
 #include "Application.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "Window.h"
+#include "../../demos/demo_SpinningCube/Scene_SpinningCube.h"
 #include "../graphics/Renderer.h"
+#include "../ui/App_TopBarUI.h"
 
 using namespace BG3DRenderer::Graphics;
 
@@ -16,18 +19,28 @@ namespace BG3DRenderer::Core {
     Application::Application()
             : appWindow(1200, 960, "3D Window"),   // ✅ Initialize window first
               appRenderer(Renderer()), // ✅ Now shader exists before this line
-              appScene(&appRenderer, &appInput),   // ✅ Scene needs Renderer and Input
               appInput(appWindow.GetWindow()),    // ✅ Input system needs the window
-              profilerUI(appWindow.GetWindow())  // ✅ Profiler needs the window
+              imGuiManager(appWindow.GetWindow()) // ✅ ImGui needs the window
     {
         std::cout << "Application created" << std::endl;
 
-        glfwSetWindowUserPointer(appWindow.GetWindow(), &appScene);
+        SceneManager::GetInstance().LoadScene(
+            std::make_unique<Demos::LightRoom::Scene_LightRoom>(&appRenderer, &appInput)
+            );
+
+        auto currentScene = SceneManager::GetInstance().GetCurrentScene();
+        if (!currentScene) {
+            std::cerr << "Error: current scene is null!" << std::endl;
+            return;
+        }
+
+        currentScene->Init(&appRenderer, &appInput);
+        glfwSetWindowUserPointer(appWindow.GetWindow(), currentScene);
 
         glfwSetScrollCallback(appWindow.GetWindow(), Scene::scroll_callback);
         glfwSetCursorPosCallback(appWindow.GetWindow(), Scene::mouse_callback);
 
-        glfwSetInputMode(appWindow.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(appWindow.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwSetInputMode(appWindow.GetWindow(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
         deltaTime = 0;
@@ -50,11 +63,22 @@ namespace BG3DRenderer::Core {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            appScene.Update(deltaTime);
-            appRenderer.Render(appScene);
+            auto currentScene = SceneManager::GetInstance().GetCurrentScene();
+            if (currentScene) {
+                glfwSetWindowUserPointer(appWindow.GetWindow(), currentScene);
 
-            profilerUI.Render(appScene, appRenderer);
+                currentScene->Init(&appRenderer, &appInput);
 
+                currentScene->Update(deltaTime);
+                appRenderer.Render(*currentScene);
+
+                imGuiManager.NewFrame();
+
+                topUI.Render();
+                profilerUI.Render(*currentScene, appRenderer);
+
+                imGuiManager.Render();
+            }
             appWindow.SwapBuffers();
         }
 
