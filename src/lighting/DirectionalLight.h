@@ -17,7 +17,7 @@ namespace BG3DRenderer::Lighting{
 
         // Override the base class virtual functions
         void Update() override;
-        void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera) override;
+        void Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera) override;
 
         // DirectionalLight specific members...
         glm::vec3 direction;

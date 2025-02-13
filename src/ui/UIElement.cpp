@@ -18,15 +18,7 @@ namespace BG3DRenderer::UI
     {
     }
 
-    void UIElement::Render(Scene& scene)
-    {
-    }
-
     void UIElement::Render(Renderer& renderer)
-    {
-    }
-
-    void UIElement::Render(Scene& scene, Renderer& renderer)
     {
     }
 }

@@ -15,9 +15,7 @@ namespace BG3DRenderer::UI{
 
     public:
         virtual void Render();
-        virtual void Render(Scene &scene);
         virtual void Render(Renderer &renderer);
-        virtual void Render(Scene &scene, Renderer &renderer);
     };
 }
 

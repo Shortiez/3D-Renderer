@@ -20,8 +20,9 @@ namespace BG3DRenderer::Core {
     private:
         Window appWindow;
         Renderer appRenderer;
-
         Input appInput;
+
+        unique_ptr<Camera> persistentAppCamera;
 
         UI::ImGuiManager imGuiManager;
         UI::DebugProfilerUI profilerUI;
@@ -29,9 +30,12 @@ namespace BG3DRenderer::Core {
 
         float deltaTime;
         float lastFrame;
+
+        void OnSceneChanged(Scene* newScene);
     public:
         Application();
         ~Application();
+
         void Run();
 
         static float DeltaTime;

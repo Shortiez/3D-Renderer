@@ -16,7 +16,7 @@ namespace BG3DRenderer::Lighting {
         Light::Update();
     }
 
-    void DirectionalLight::Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera) {
+    void DirectionalLight::Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera) {
         // Call base class Render to handle common light properties
         Light::Render(shader, camera);
 

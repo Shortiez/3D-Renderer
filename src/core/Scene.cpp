@@ -1,6 +1,7 @@
 //
 // Created by Ben Gotts on 25/01/2025.
 //
+#include <utility>
 #include <vector>
 #include "Scene.h"
 
@@ -18,27 +19,16 @@ using namespace std;
 
 namespace BG3DRenderer::Core {
 
-    Scene::Scene(){
-
-    }
-
-    Scene::Scene(Graphics::Renderer* renderer, Input* input) :
+    Scene::Scene(Graphics::Renderer* renderer, Camera* cam, Input* input) :
+       mainCamera(cam),
        renderer(renderer),
-       input(input)
-    {
-        mainCamera = std::make_shared<Camera>(Camera(glm::vec3(0.0f, 0.0f, 3.0f)));
-        renderer->SetCamera(mainCamera);
-
-        Start();
+       input(input){
     }
 
     Scene::~Scene() {
-
-    }
-
-    void Scene::Init(Renderer* renderer, Input* input){
-        this->renderer = renderer;
-        this->input = input;
+        delete renderer;
+        delete input;
+        delete mainCamera;
     }
 
     void Scene::AddSceneObject(SceneObject& sceneObject) {
@@ -57,6 +47,12 @@ namespace BG3DRenderer::Core {
     }
 
     void Scene::Start() {
+    }
+
+    void Scene::Stop()
+    {
+        sceneObjects->clear();
+        sceneLights.clear();
     }
 
     void Scene::Update(float deltaTime) {
@@ -107,10 +103,6 @@ namespace BG3DRenderer::Core {
             throw std::out_of_range("Light index out of range");
         }
         return const_cast<std::unique_ptr<Lighting::Light>&>(sceneLights[index]);
-    }
-    
-    shared_ptr<Camera> Scene::GetCamera() {
-        return mainCamera;
     }
 
     bool firstMouse = true;

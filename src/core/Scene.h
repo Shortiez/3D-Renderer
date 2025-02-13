@@ -28,18 +28,15 @@ namespace BG3DRenderer::Core {
     private:
         shared_ptr<vector<SceneObject>> sceneObjects = make_shared<vector<SceneObject>>();
         std::vector<std::unique_ptr<Lighting::Light>> sceneLights;
-        shared_ptr<Camera> mainCamera;
+        Camera* mainCamera;
 
         Renderer* renderer;
         Input* input;
 
         void internalUpdate();
     public:
-        Scene();
-        Scene(Renderer* renderer, Input* input);
+        Scene(Renderer* renderer, Camera* cam, Input* input);
         virtual ~Scene();
-
-        void Init(Renderer* renderer, Input* input);
 
         void AddSceneObject(SceneObject& sceneObject);
         void RemoveSceneObject(SceneObject* sceneObject);
@@ -48,6 +45,7 @@ namespace BG3DRenderer::Core {
         void RemoveLight(Lighting::Light* light);
 
         virtual void Start();
+        void Stop();
         virtual void Update(float deltaTime);
 
         std::shared_ptr<vector<SceneObject>> GetSceneObjects();
@@ -64,7 +62,9 @@ namespace BG3DRenderer::Core {
             return sceneLights.size();
         }
 
-        shared_ptr<Camera> GetCamera();
+        Camera* GetCamera(){
+            return mainCamera;
+        }
 
         static void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
         static void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn);

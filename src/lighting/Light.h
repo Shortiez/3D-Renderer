@@ -26,8 +26,8 @@ namespace BG3DRenderer::Lighting{
         float intensity = 1.0f;
 
         virtual void Update();
-        virtual void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera);
-        virtual void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera, int lightIndex);
+        virtual void Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera);
+        virtual void Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera, int lightIndex);
 
         Core::Transform transform;
         std::shared_ptr<Graphics::Mesh> mesh;

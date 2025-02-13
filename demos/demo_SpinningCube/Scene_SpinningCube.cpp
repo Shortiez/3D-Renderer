@@ -4,14 +4,16 @@
 
 #include "Scene_SpinningCube.h"
 
+#include <utility>
+
 #include "../../src/graphics/MeshLibrary.h"
 #include "../../src/lighting/DirectionalLight.h"
 
 namespace BG3DRenderer::Demos::SpinningCube{
 
     // Constructor: call the base Scene constructor with renderer and input.
-    Scene_SpinningCube::Scene_SpinningCube(Renderer* renderer, Core::Input* input)
-        : Core::Scene(renderer, input)
+    Scene_SpinningCube::Scene_SpinningCube(Renderer* renderer, Core::Camera* cam, Core::Input* input)
+        : Core::Scene(renderer, cam, input)
     {
         // Add any scene-specific initialization here.
     }

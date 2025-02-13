@@ -7,17 +7,24 @@
 #include <utility>
 #include "ShaderManager.h"
 #include "../core/Scene.h"  // Include full definition of Scene
+#include "../core/SceneManager.h"
 #include "../lighting/Light.h"
 
-namespace BG3DRenderer::Graphics{
-
+namespace BG3DRenderer::Graphics
+{
     Renderer::Renderer(){
         activeShader = ShaderManager::loadShader("src/shaders/VertexShader.glsl", "src/shaders/FragmentShader.glsl");
 
         activeShader->Use();
     }
 
-    void Renderer::Render(Scene& scene) {
+    Renderer::~Renderer(){
+        delete activeCamera;
+    }
+
+    void Renderer::Render() {
+        assert(activeCamera != nullptr);
+
         activeShader->Use();
 
         // Update view and projection matrices
@@ -38,19 +45,19 @@ namespace BG3DRenderer::Graphics{
         activeShader->SetMat4("view", view);
         activeShader->SetMat4("projection", projection);
 
-        activeShader->SetInt("activePointLights", std::count_if(scene.GetSceneLights().begin(),
-                                                                scene.GetSceneLights().end(), [](const auto& light)
+        activeShader->SetInt("activePointLights", std::count_if(SceneManager::GetInstance().GetCurrentScene()->GetSceneLights().begin(),
+                                                                SceneManager::GetInstance().GetCurrentScene()->GetSceneLights().end(), [](const auto& light)
                                                                 {
                                                                     return light->GetType() == LightType::Point;
                                                                 }));
 
-        for (auto& object : *scene.GetSceneObjects()) {
+        for (auto& object : *SceneManager::GetInstance().GetCurrentScene()->GetSceneObjects()) {
             object.Render(activeShader);
         }
 
-        for (int i = 0; i < scene.GetSceneLights().size(); ++i)
+        for (int i = 0; i < SceneManager::GetInstance().GetCurrentScene()->GetSceneLights().size(); ++i)
         {
-            auto& light = scene.GetSceneLights()[i];
+            auto& light = SceneManager::GetInstance().GetCurrentScene()->GetSceneLights()[i];
             if (light->GetType() == LightType::Point)
             {
                 light->Render(activeShader, activeCamera, i - 1);
@@ -62,7 +69,7 @@ namespace BG3DRenderer::Graphics{
         }
     }
 
-    void Renderer::SetCamera(std::shared_ptr<Camera> camera) {
+    void Renderer::SetCamera(Camera* camera) {
         activeCamera = camera;
     }
 

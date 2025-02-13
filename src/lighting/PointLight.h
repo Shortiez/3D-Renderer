@@ -18,7 +18,7 @@ namespace BG3DRenderer::Lighting {
         void SetAttenuation(float constant, float linear, float quadratic);
         
         void Update() override;
-        void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera, int lightIndex) override;
+        void Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera, int lightIndex) override;
     };
 }
 

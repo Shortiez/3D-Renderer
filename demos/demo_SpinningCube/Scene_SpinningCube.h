@@ -9,7 +9,7 @@
 namespace BG3DRenderer::Demos::SpinningCube{
     class Scene_SpinningCube : public BG3DRenderer::Core::Scene {
     public:
-        Scene_SpinningCube(Renderer* renderer, Core::Input* input);
+        Scene_SpinningCube(Renderer* renderer, Core::Camera* cam, Core::Input* input);
         ~Scene_SpinningCube();
 
         void Start() override;

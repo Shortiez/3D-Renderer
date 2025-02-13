@@ -10,7 +10,7 @@ namespace BG3DRenderer::Demos::LightRoom
 {
     class Scene_LightRoom : public BG3DRenderer::Core::Scene {
     public:
-        Scene_LightRoom(Renderer* renderer, Core::Input* input);
+        Scene_LightRoom(Renderer* renderer, Core::Camera* cam, Core::Input* input);
         ~Scene_LightRoom();
 
         void Start() override;

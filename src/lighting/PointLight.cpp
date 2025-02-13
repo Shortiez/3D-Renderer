@@ -23,7 +23,7 @@ namespace BG3DRenderer::Lighting {
     }
 
     void PointLight::Render(std::shared_ptr<Graphics::Shader> shader,
-                            std::shared_ptr<Core::Camera> camera,
+                            Core::Camera* camera,
                             int lightIndex) {
         // Call the base class render to update any common uniforms.
         Light::Render(shader, camera);

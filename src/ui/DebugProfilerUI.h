@@ -18,7 +18,7 @@ namespace BG3DRenderer::UI {
         DebugProfilerUI();
         ~DebugProfilerUI();
 
-        void Render(Scene &scene, Renderer &renderer) override;
+        void Render(Renderer &renderer) override;
     };
 }
 #endif

@@ -24,7 +24,7 @@ namespace BG3DRenderer::Lighting {
         void SetDirection(const glm::vec3& direction);
         
         void Update() override;
-        void Render(std::shared_ptr<Graphics::Shader> shader, std::shared_ptr<Core::Camera> camera) override;
+        void Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera) override;
     private:
         glm::vec3 direction;
     };

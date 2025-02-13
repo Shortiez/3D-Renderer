@@ -4,35 +4,33 @@
 #include <memory>
 #include "Scene.h"  // Base scene header
 
-namespace BG3DRenderer::Core {
+namespace BG3DRenderer::Core{
+    class SceneManager {
+    public:
+        // Singleton access (you could also use dependency injection)
+        static SceneManager& GetInstance();
 
-class SceneManager {
-public:
-    // Singleton access (you could also use dependency injection)
-    static SceneManager& GetInstance();
+        // Loads and switches to a new scene instance
+        void LoadScene(std::unique_ptr<Scene> newScene);
+        Scene* GetCurrentScene() const;
 
-    // Loads and switches to a new scene instance
-    void LoadScene(std::unique_ptr<Scene> newScene);
+        using SceneChangeCallback = std::function<void(Scene*)>;
+        void RegisterSceneChangeCallback(const SceneChangeCallback& callback);
+    private:
+        // Private constructor for singleton usage
+        SceneManager() = default;
+        ~SceneManager() = default;
 
-    // Gets a pointer to the current scene
-    Scene* GetCurrentScene() const;
+        // Delete copy constructor and assignment operator
+        SceneManager(const SceneManager&) = delete;
+        SceneManager& operator=(const SceneManager&) = delete;
 
-    // Updates the current scene
-    void UpdateCurrentScene(float deltaTime);
+        // The current active scene
+        std::unique_ptr<Scene> currentScene;
 
-private:
-    // Private constructor for singleton usage
-    SceneManager() = default;
-    ~SceneManager() = default;
-
-    // Delete copy constructor and assignment operator
-    SceneManager(const SceneManager&) = delete;
-    SceneManager& operator=(const SceneManager&) = delete;
-
-    // The current active scene
-    std::unique_ptr<Scene> currentScene;
-};
-
+        // Store the registered callbacks
+        std::vector<SceneChangeCallback> sceneChangeCallbacks;
+    };
 } // namespace BG3DRenderer::Core
 
 #endif // SCENE_MANAGER_H

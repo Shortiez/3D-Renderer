@@ -27,7 +27,7 @@ namespace BG3DRenderer::Lighting{
         */
     }
 
-    void Light::Render(std::shared_ptr<Shader> shader, std::shared_ptr<Core::Camera> camera) {
+    void Light::Render(std::shared_ptr<Shader> shader, Camera* camera) {
         shader->SetVec3("lightPos", transform.position);
         shader->SetVec3("viewPos", camera->Position);
 
@@ -35,7 +35,7 @@ namespace BG3DRenderer::Lighting{
         mesh->DrawMesh(shader);
     }
 
-    void Light::Render(std::shared_ptr<Shader> shader, std::shared_ptr<Core::Camera> camera, int lightIndex) {
+    void Light::Render(std::shared_ptr<Shader> shader, Camera* camera, int lightIndex) {
         shader->SetVec3("lightPos", transform.position);
         shader->SetVec3("viewPos", camera->Position);
 

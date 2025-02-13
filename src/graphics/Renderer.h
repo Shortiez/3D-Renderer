@@ -20,7 +20,7 @@ namespace BG3DRenderer::Graphics{
 	class Renderer {
 	private:
         std::shared_ptr<Shader> activeShader;
-		std::shared_ptr<Camera> activeCamera;
+		Camera* activeCamera;
 
 		float deltaTime = 0.0f;
 		float lastFrame = 0.0f;
@@ -33,11 +33,12 @@ namespace BG3DRenderer::Graphics{
 		std::vector<float> frameTimeHistory;
 	public:
 		Renderer();
+		~Renderer();
 
 		void UpdateFrameTime();
-		void Render(Scene& scene);
+		void Render();
 
-		void SetCamera(std::shared_ptr<Camera> camera);
+		void SetCamera(Camera* camera);
 
         std::shared_ptr<Shader> GetShader();
 
