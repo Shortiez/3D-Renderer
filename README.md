@@ -39,6 +39,7 @@ make
 # Run the renderer
 ./renderer
 ```
+Note: Inside CMakeLists.txt add your own glm and glfw paths
 
 ## 🎮 Usage
 
