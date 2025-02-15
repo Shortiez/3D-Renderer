@@ -38,6 +38,7 @@ namespace BG3DRenderer::Lighting {
         // Add any spotlight specific update logic here
         Light::Update();
 
+        // EXAMPLE: Orbit the light around the origin
         static float angle = 0.0f;
         float radius = 2.0f; // Radius of the orbit
         float speed = glm::pi<float>() / 4.0f; // Speed of the orbit (radians per second)
@@ -47,6 +48,10 @@ namespace BG3DRenderer::Lighting {
         // Calculate the new position
         transform.position.x = radius * cos(angle);
         transform.position.z = radius * sin(angle);
+
+        // Rotate to face 0,0,0
+        transform.Rotate(glm::vec3(0, glm::degrees(angle), 0));
+        direction = -transform.position;
     }
 
     void SpotLight::Render(std::shared_ptr<Graphics::Shader> shader, Core::Camera* camera) {

@@ -93,6 +93,9 @@ namespace BG3DRenderer::UI
                 const auto &light = currentScene->GetSceneLight(i);
                 ImGui::Text("Position: %.2f, %.2f, %.2f", light->transform.position.x, light->transform.position.y,
                             light->transform.position.z);
+                ImGui::Text("Rotation: %.2f, %.2f, %.2f", light->transform.rotation.x, light->transform.rotation.y,
+                            light->transform.rotation.z);
+
                 ImGui::Text("Intensity: %.2f", light->intensity);
                 ImGui::Text("Ambient: %.2f, %.2f, %.2f", light->ambient.r, light->ambient.g, light->ambient.b);
                 ImGui::Text("Diffuse: %.2f, %.2f, %.2f", light->diffuse.r, light->diffuse.g, light->diffuse.b);

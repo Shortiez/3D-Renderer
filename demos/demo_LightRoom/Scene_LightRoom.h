@@ -6,7 +6,7 @@
 #define SCENE_LIGHTROOM_H
 #include "../../src/core/Scene.h"
 
-namespace BG3DRenderer::Demos::LightRoom
+namespace BG3DRenderer::Demos
 {
     class Scene_LightRoom : public BG3DRenderer::Core::Scene {
     public:

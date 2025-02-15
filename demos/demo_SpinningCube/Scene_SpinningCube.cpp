@@ -8,8 +8,10 @@
 
 #include "../../src/graphics/MeshLibrary.h"
 #include "../../src/lighting/DirectionalLight.h"
+#include "../../src/lighting/PointLight.h"
+#include "../../src/lighting/SpotLight.h"
 
-namespace BG3DRenderer::Demos::SpinningCube{
+namespace BG3DRenderer::Demos{
 
     // Constructor: call the base Scene constructor with renderer and input.
     Scene_SpinningCube::Scene_SpinningCube(Renderer* renderer, Core::Camera* cam, Core::Input* input)
@@ -28,6 +30,12 @@ namespace BG3DRenderer::Demos::SpinningCube{
 
         auto light = std::make_unique<Lighting::DirectionalLight>();
         AddLight(std::move(light));
+
+        auto spotLight = std::make_unique<Lighting::SpotLight>();
+        spotLight->transform.Translate(glm::vec3(0, 0, 5));
+        spotLight->SetDirection(glm::vec3(0, 0, -1));
+        spotLight->diffuse = Colour::Yellow();
+        AddLight(std::move(spotLight));
 
         auto material = std::make_shared<Material>(Material::pearl);
 

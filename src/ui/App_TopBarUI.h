@@ -25,10 +25,10 @@ namespace BG3DRenderer::UI
     private:
         std::vector<DemoSceneInfo> demoScenes{
             {"Spinning Cube", []() {
-                    return std::make_unique<BG3DRenderer::Demos::SpinningCube::Scene_SpinningCube>(nullptr, nullptr, nullptr);
+                    return std::make_unique<BG3DRenderer::Demos::Scene_SpinningCube>(nullptr, nullptr, nullptr);
             }},
             {"Light Room", []() {
-                return std::make_unique<BG3DRenderer::Demos::LightRoom::Scene_LightRoom>(nullptr, nullptr, nullptr);
+                return std::make_unique<BG3DRenderer::Demos::Scene_LightRoom>(nullptr, nullptr, nullptr);
             }}
         };
     public:

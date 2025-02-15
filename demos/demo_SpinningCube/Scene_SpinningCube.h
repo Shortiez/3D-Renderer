@@ -6,7 +6,7 @@
 #define SCENE_SPINNINGCUBE_H
 #include "../../src/core/Scene.h"
 
-namespace BG3DRenderer::Demos::SpinningCube{
+namespace BG3DRenderer::Demos{
     class Scene_SpinningCube : public BG3DRenderer::Core::Scene {
     public:
         Scene_SpinningCube(Renderer* renderer, Core::Camera* cam, Core::Input* input);

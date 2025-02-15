@@ -49,8 +49,7 @@ namespace BG3DRenderer::Core {
     void Scene::Start() {
     }
 
-    void Scene::Stop()
-    {
+    void Scene::Stop(){
         sceneObjects->clear();
         sceneLights.clear();
     }

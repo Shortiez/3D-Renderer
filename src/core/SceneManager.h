@@ -6,16 +6,6 @@
 
 namespace BG3DRenderer::Core{
     class SceneManager {
-    public:
-        // Singleton access (you could also use dependency injection)
-        static SceneManager& GetInstance();
-
-        // Loads and switches to a new scene instance
-        void LoadScene(std::unique_ptr<Scene> newScene);
-        Scene* GetCurrentScene() const;
-
-        using SceneChangeCallback = std::function<void(Scene*)>;
-        void RegisterSceneChangeCallback(const SceneChangeCallback& callback);
     private:
         // Private constructor for singleton usage
         SceneManager() = default;
@@ -28,8 +18,22 @@ namespace BG3DRenderer::Core{
         // The current active scene
         std::unique_ptr<Scene> currentScene;
 
+        using SceneChangeCallback = std::function<void(Scene*)>;
         // Store the registered callbacks
         std::vector<SceneChangeCallback> sceneChangeCallbacks;
+
+        shared_ptr<Renderer> renderer;
+        shared_ptr<Input> input;
+        shared_ptr<Camera> mainCamera;
+    public:
+        // Singleton access (you could also use dependency injection)
+        static SceneManager& GetInstance();
+
+        // Loads and switches to a new scene instance
+        void LoadScene(std::unique_ptr<Scene> newScene);
+        Scene* GetCurrentScene() const;
+
+        void RegisterSceneChangeCallback(const SceneChangeCallback& callback);
     };
 } // namespace BG3DRenderer::Core
 

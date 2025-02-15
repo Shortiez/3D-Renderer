@@ -9,7 +9,7 @@
 #include "../../src/graphics/MeshLibrary.h"
 #include "../../src/lighting/DirectionalLight.h"
 
-namespace BG3DRenderer::Demos::LightRoom{
+namespace BG3DRenderer::Demos{
 
     // Constructor: call the base Scene constructor with renderer and input.
     Scene_LightRoom::Scene_LightRoom(Renderer* renderer, Core::Camera* cam, Core::Input* input)

@@ -9,6 +9,7 @@
 #include "../graphics/Renderer.h"
 #include "../core/Scene.h"
 #include "Input.h"
+#include "SceneManager.h"
 #include "../ui/DebugProfilerUI.h"
 #include "../ui/App_TopBarUI.h"
 #include "../ui/ImGuiManager.h"

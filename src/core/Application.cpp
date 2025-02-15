@@ -21,7 +21,7 @@ namespace BG3DRenderer::Core {
               appRenderer(Renderer()), // ✅ Now shader exists before this line
               appInput(appWindow.GetWindow()),
               persistentAppCamera(new Camera()),
-              imGuiManager(appWindow.GetWindow()) // ✅ ImGui needs the window
+              imGuiManager(appWindow.GetWindow())// ✅ ImGui needs the window
     {
         std::cout << "Application created" << std::endl;
 
@@ -29,7 +29,7 @@ namespace BG3DRenderer::Core {
 
         // Load the initial scene.
         SceneManager::GetInstance().LoadScene(
-            std::make_unique<Demos::LightRoom::Scene_LightRoom>(&appRenderer, persistentAppCamera.get(), &appInput)
+            std::make_unique<Demos::Scene_SpinningCube>(&appRenderer, persistentAppCamera.get(), &appInput)
         );
 
         SceneManager::GetInstance().RegisterSceneChangeCallback(
@@ -87,12 +87,12 @@ namespace BG3DRenderer::Core {
 
             if (appInput.IsKeyPressed(GLFW_KEY_P))
             {
-                std::make_unique<Demos::LightRoom::Scene_LightRoom>(&appRenderer, persistentAppCamera.get(), &appInput);
+                std::make_unique<Demos::Scene_LightRoom>(&appRenderer, persistentAppCamera.get(), &appInput);
             }
 
             if (appInput.IsKeyPressed(GLFW_KEY_K))
             {
-                std::make_unique<Demos::SpinningCube::Scene_SpinningCube>(&appRenderer, persistentAppCamera.get(), &appInput);
+                std::make_unique<Demos::Scene_SpinningCube>(&appRenderer, persistentAppCamera.get(), &appInput);
             }
 
             auto currentScene = SceneManager::GetInstance().GetCurrentScene();
